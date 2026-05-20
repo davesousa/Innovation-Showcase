@@ -291,13 +291,13 @@ export default function Home() {
           {/* Reactive retro tunnel */}
           <RetroTunnelScene className="hidden h-[500px] w-full lg:block">
             {/* Floating Frames - Matching Master (Rounded, Light Blue Borders) */}
-            <div className="absolute top-0 right-10 z-20 flex h-48 w-64 items-center justify-center border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
+            <div className="absolute top-0 right-10 z-20 flex h-48 w-64 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
               {orderedHeroImages[0] ? (
                 <Image
                   src={orderedHeroImages[0].image_url}
                   alt="Innovation Showcase hero image 1"
                   fill
-                  className="object-contain p-8"
+                  className="object-cover"
                 />
               ) : (
                 <div className="h-16 w-16 opacity-20">
@@ -306,13 +306,13 @@ export default function Home() {
               )}
             </div>
             
-            <div className="absolute -left-10 top-40 z-30 flex h-60 w-80 items-center justify-center border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
+            <div className="absolute -left-10 top-40 z-30 flex h-60 w-80 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
               {orderedHeroImages[1] ? (
                 <Image
                   src={orderedHeroImages[1].image_url}
                   alt="Innovation Showcase hero image 2"
                   fill
-                  className="object-contain p-10"
+                  className="object-cover"
                 />
               ) : (
                 <div className="h-20 w-20 opacity-20">
@@ -321,13 +321,13 @@ export default function Home() {
               )}
             </div>
 
-            <div className="absolute bottom-0 right-20 z-20 flex h-52 w-72 items-center justify-center border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-c-x,0px),var(--tunnel-parallax-c-y,0px),0)]">
+            <div className="absolute bottom-0 right-20 z-20 flex h-52 w-72 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-c-x,0px),var(--tunnel-parallax-c-y,0px),0)]">
               {orderedHeroImages[2] ? (
                 <Image
                   src={orderedHeroImages[2].image_url}
                   alt="Innovation Showcase hero image 3"
                   fill
-                  className="object-contain p-8"
+                  className="object-cover"
                 />
               ) : (
                 <div className="h-16 w-16 opacity-20">
@@ -535,14 +535,14 @@ export default function Home() {
       {/* Supporters */}
       <section id="supporters" className="relative z-10 bg-white">
         <div className="border-y-2 border-[#303030]">
-          <div className="container mx-auto grid px-6 md:grid-cols-[2px_1fr_2px_1fr] md:px-12 lg:px-24">
+          <div className="container mx-auto grid px-6 md:grid-cols-[2px_minmax(0,1.3fr)_2px_minmax(0,0.7fr)] md:px-12 lg:px-24">
             <div className="hidden bg-[#303030] md:block" />
 
             <div className="py-8 md:py-10 md:pl-8 md:pr-10">
               <div className="font-pixel mb-0.5 text-[10px] uppercase tracking-normal text-[#0c7bc6] md:text-[11px]">
                 Thank You
               </div>
-              <h2 className="text-4xl font-black tracking-[-0.04em] text-[#303030] sm:text-5xl md:text-6xl lg:text-7xl">
+              <h2 className="whitespace-nowrap text-4xl font-black tracking-[-0.04em] text-[#303030] sm:text-5xl md:text-6xl lg:text-7xl">
                 Our Supporters
               </h2>
             </div>
@@ -582,7 +582,7 @@ export default function Home() {
                 Supporter logos coming soon
               </div>
             ) : (
-              <div className="grid w-full max-w-6xl grid-cols-2 items-center justify-items-center gap-6 md:grid-cols-4 md:gap-8">
+              <div className="flex w-full max-w-6xl flex-wrap items-center justify-center gap-6 md:gap-8">
                 {supporters.slice(0, 4).map((supporter) => (
                     <div
                       key={supporter.id}
