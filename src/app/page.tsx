@@ -226,51 +226,51 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white font-sans text-[#303030]">
       {/* Hero Section Container */}
-      <section id="home" className="relative min-h-screen overflow-hidden bg-[#dfebf7]">
+      <section id="home" className="relative min-h-[720px] overflow-hidden bg-[#dfebf7] lg:min-h-screen">
         {/* Hero-only inset frame. Lines intentionally overlap to form corner squares. */}
-        <div className="pointer-events-none absolute top-10 left-0 right-0 h-[2px] bg-[#303030] z-40" />
-        <div className="pointer-events-none absolute bottom-10 left-0 right-0 h-[2px] bg-[#303030] z-40" />
-        <div className="pointer-events-none absolute left-10 top-0 bottom-0 w-[2px] bg-[#303030] z-40" />
-        <div className="pointer-events-none absolute right-10 top-0 bottom-0 w-[2px] bg-[#303030] z-40" />
+        <div className="pointer-events-none absolute left-0 right-0 top-8 z-40 h-[2px] bg-[#303030] md:top-10" />
+        <div className="pointer-events-none absolute bottom-8 left-0 right-0 z-40 h-[2px] bg-[#303030] md:bottom-10" />
+        <div className="pointer-events-none absolute bottom-0 left-8 top-0 z-40 w-[2px] bg-[#303030] md:left-10" />
+        <div className="pointer-events-none absolute bottom-0 right-8 top-0 z-40 w-[2px] bg-[#303030] md:right-10" />
 
         {/* Corner Icons */}
-        <div className="absolute top-0 left-0 w-10 h-10 flex items-center justify-center z-50">
-          <Image src="/assets/images/iris_black.webp" alt="Iris" width={32} height={32} className="opacity-80" />
+        <div className="absolute left-0 top-0 z-50 flex h-8 w-8 items-center justify-center md:h-10 md:w-10">
+          <Image src="/assets/images/iris_black.webp" alt="Iris" width={32} height={32} className="size-6 opacity-80 md:size-8" />
         </div>
-        <div className="absolute bottom-0 right-0 w-10 h-10 flex items-center justify-center z-50">
-          <Image src="/assets/images/iris_black.webp" alt="Iris" width={32} height={32} className="opacity-80" />
+        <div className="absolute bottom-0 right-0 z-50 flex h-8 w-8 items-center justify-center md:h-10 md:w-10">
+          <Image src="/assets/images/iris_black.webp" alt="Iris" width={32} height={32} className="size-6 opacity-80 md:size-8" />
         </div>
 
         {/* Header / Top Bar */}
-        <header className="h-10 flex items-center justify-end px-14 relative z-50">
+        <header className="relative z-50 flex h-8 items-center justify-end px-9 md:h-10 md:px-14">
           <a
             href="https://cybersecurecatalyst.ca/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-pixel flex items-center gap-2.5 text-[10px] uppercase tracking-normal hover:opacity-60 transition-opacity"
+            className="font-pixel flex items-center gap-1.5 text-[7px] uppercase tracking-normal transition-opacity hover:opacity-60 sm:text-[8px] md:gap-2.5 md:text-[10px]"
           >
             Return to main site <PixelExternalArrowIcon />
           </a>
         </header>
 
-        <div className="relative flex min-h-[calc(100vh-40px)] flex-col pt-16 pb-24">
+        <div className="relative flex min-h-[calc(720px-32px)] flex-col pb-16 pt-10 lg:min-h-[calc(100vh-40px)] lg:pb-24 lg:pt-16">
         {/* Navigation - Moved inside hero, above title */}
-        <nav className="container mx-auto px-6 md:px-12 lg:px-24 flex gap-10 text-[11px] font-black uppercase tracking-[0.2em] mb-24 relative z-50">
+        <nav className="container relative z-50 mx-auto mb-14 flex flex-wrap gap-x-5 gap-y-3 px-10 text-[9px] font-black uppercase tracking-[0.16em] md:px-12 md:text-[11px] lg:mb-24 lg:gap-10 lg:px-24">
           <a href="#home" className="border-b-2 border-[#0c7bc6] pb-1">Home</a>
           <a href="#agenda" className="hover:text-[#0c7bc6] transition-colors">Agenda</a>
           <a href="#participants" className="hover:text-[#0c7bc6] transition-colors">Participants</a>
           <a href="#supporters" className="hover:text-[#0c7bc6] transition-colors">Supporters</a>
         </nav>
 
-        <div className="container mx-auto px-6 md:px-12 lg:px-24 grid flex-1 grid-cols-1 items-center gap-12 lg:grid-cols-2 relative z-10">
+        <div className="container relative z-10 mx-auto grid flex-1 grid-cols-1 items-center gap-12 px-10 md:px-12 lg:grid-cols-2 lg:px-24">
           <div className="max-w-2xl">
-            <h1 className="text-[74px] md:text-[94px] font-black leading-[0.9] tracking-[-0.055em] mb-6">
+            <h1 className="mb-5 text-[48px] font-black leading-[0.9] tracking-[-0.055em] sm:text-[58px] md:mb-6 md:text-[74px] xl:text-[94px]">
               Catalyst<br />Innovation<br />Showcase
             </h1>
-            <p className="max-w-md text-[15px] font-bold leading-snug mb-7 tracking-tight opacity-70">
+            <p className="mb-6 max-w-md text-[14px] font-bold leading-snug tracking-tight opacity-70 md:mb-7 md:text-[15px]">
               Join us at the Catalyst Innovation Showcase, where startups from three leading innovation programs will present their technologies.
             </p>
-            <div className="font-pixel text-[10px] uppercase tracking-normal flex items-center gap-3">
+            <div className="font-pixel flex flex-wrap items-center gap-x-3 gap-y-2 text-[8px] uppercase tracking-normal sm:text-[9px] md:text-[10px]">
               <span>THURSDAY, JUNE 11</span>
               <span className="text-[#0c7bc6] text-xl">/</span>
               <span className="opacity-80">3:00 PM - 7:00 PM</span>
@@ -280,19 +280,19 @@ export default function Home() {
           {/* Reactive retro tunnel */}
           <RetroTunnelScene className="hidden h-[500px] w-full lg:block">
             {/* Floating Frames - Matching Master (Rounded, Light Blue Borders) */}
-            <div className="absolute top-0 right-10 w-64 h-48 bg-[#dfebf7]/80 border-[6px] border-[#0c7bc6]/30 rounded-[40px] shadow-2xl shadow-[#303030]/5 flex items-center justify-center z-20 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
+            <div className="absolute top-0 right-10 z-20 flex h-48 w-64 items-center justify-center border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
                <div className="w-16 h-16 opacity-20">
                  <Image src="/file.svg" alt="icon" width={64} height={64} className="grayscale" />
                </div>
             </div>
             
-            <div className="absolute top-40 -left-10 w-80 h-60 bg-[#dfebf7]/90 border-[8px] border-[#0c7bc6]/30 rounded-[50px] shadow-2xl shadow-[#303030]/10 flex items-center justify-center z-30 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
+            <div className="absolute -left-10 top-40 z-30 flex h-60 w-80 items-center justify-center border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
                <div className="w-20 h-20 opacity-20">
                  <Image src="/file.svg" alt="icon" width={80} height={80} className="grayscale" />
                </div>
             </div>
 
-            <div className="absolute bottom-0 right-20 w-72 h-52 bg-[#dfebf7]/80 border-[7px] border-[#0c7bc6]/30 rounded-[45px] shadow-2xl shadow-[#303030]/5 flex items-center justify-center z-20 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-c-x,0px),var(--tunnel-parallax-c-y,0px),0)]">
+            <div className="absolute bottom-0 right-20 z-20 flex h-52 w-72 items-center justify-center border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-c-x,0px),var(--tunnel-parallax-c-y,0px),0)]">
                <div className="w-16 h-16 opacity-20">
                  <Image src="/file.svg" alt="icon" width={64} height={64} className="grayscale" />
                </div>
@@ -306,14 +306,14 @@ export default function Home() {
       {/* ... keeping them for now but they are below the main hero area ... */}
       
       {/* Agenda Section */}
-      <section id="agenda" className="relative z-10 bg-white py-24 border-t-2 border-[#303030]">
+      <section id="agenda" className="relative z-10 border-t-2 border-[#303030] bg-white py-16 md:py-24">
         <div className="container mx-auto px-6 md:px-12 lg:px-24">
-          <div className="mb-12 flex items-end justify-between">
+          <div className="mb-10 flex flex-col items-start gap-7 md:mb-12 md:flex-row md:items-end md:justify-between">
             <div>
-              <div className="font-pixel mb-0.5 ml-[3px] text-[11px] uppercase tracking-normal text-[#0c7bc6]">
+              <div className="font-pixel mb-0.5 ml-[3px] text-[10px] uppercase tracking-normal text-[#0c7bc6] md:text-[11px]">
                 Agenda
               </div>
-              <h2 className="text-6xl font-black tracking-[-0.04em] text-[#303030]">
+              <h2 className="text-4xl font-black tracking-[-0.04em] text-[#303030] sm:text-5xl md:text-6xl">
                 Event Highlights
               </h2>
             </div>
@@ -322,7 +322,7 @@ export default function Home() {
               type="button"
               disabled={!scheduleDocument}
               onClick={handleScheduleDownload}
-              className="h-14 cursor-pointer rounded-none border-2 border-[#303030] bg-white px-8 text-lg font-medium text-[#303030] shadow-[4px_4px_0_#0c7bc6] transition-all hover:border-[#303030] hover:bg-[#303030] hover:text-[#dfebf7] hover:shadow-[4px_4px_0_#0c7bc6]"
+              className="h-12 cursor-pointer rounded-none border-2 border-[#303030] bg-white px-5 text-sm font-medium text-[#303030] shadow-[4px_4px_0_#0c7bc6] transition-all hover:border-[#303030] hover:bg-[#303030] hover:text-[#dfebf7] hover:shadow-[4px_4px_0_#0c7bc6] md:h-14 md:px-8 md:text-lg"
               title={scheduleDocument ? `Download ${scheduleDocument.file_name}` : "No schedule PDF has been uploaded yet"}
             >
               Download PDF version <PixelDownloadIcon />
@@ -338,20 +338,20 @@ export default function Home() {
                 .map((event) => (
                   <div
                     key={event.id}
-                    className="flex min-h-28 flex-col gap-6 bg-[#dfebf7] p-3 md:flex-row md:items-stretch"
+                    className="flex min-h-28 flex-col gap-3 bg-[#dfebf7] p-3 md:flex-row md:items-stretch md:gap-6"
                   >
-                    <div className="flex min-h-24 items-center justify-center bg-[#303030] px-8 text-white md:w-44">
-                      <span className="font-pixel whitespace-nowrap text-[16px] tracking-normal">
+                    <div className="flex min-h-20 items-center justify-center bg-[#303030] px-6 text-white md:min-h-24 md:w-44 md:px-8">
+                      <span className="font-pixel whitespace-nowrap text-[13px] tracking-normal md:text-[16px]">
                         {formatEventTime(event.start_time)}
                       </span>
                     </div>
-                    <div className="flex flex-1 flex-col gap-6 px-5 py-4 md:flex-row md:items-center md:justify-between">
+                    <div className="flex flex-1 flex-col gap-4 px-3 py-3 md:flex-row md:items-center md:justify-between md:gap-6 md:px-5 md:py-4">
                       <div className="max-w-md md:w-1/3">
-                        <h3 className="text-xl font-black uppercase leading-tight tracking-[-0.02em] text-[#303030]">
+                        <h3 className="text-lg font-black uppercase leading-tight tracking-[-0.02em] text-[#303030] md:text-xl">
                           {event.title}
                         </h3>
                       </div>
-                      <p className="max-w-xl text-base font-medium leading-snug text-[#303030] md:w-1/2">
+                      <p className="max-w-xl text-sm font-medium leading-snug text-[#303030] md:w-1/2 md:text-base">
                         {event.description}
                       </p>
                     </div>
@@ -363,13 +363,13 @@ export default function Home() {
       </section>
 
       {/* Participants */}
-      <section id="participants" className="py-24 relative z-10">
+      <section id="participants" className="relative z-10 py-16 md:py-24">
         <div className="container mx-auto px-6 md:px-12 lg:px-24">
-          <div className="mb-20">
-            <div className="font-pixel mb-0.5 text-[11px] uppercase tracking-normal text-[#0c7bc6]">
+          <div className="mb-12 md:mb-20">
+            <div className="font-pixel mb-0.5 text-[10px] uppercase tracking-normal text-[#0c7bc6] md:text-[11px]">
               The future innovators
             </div>
-            <h2 className="text-6xl font-black tracking-[-0.04em] text-[#303030]">Participants</h2>
+            <h2 className="text-4xl font-black tracking-[-0.04em] text-[#303030] sm:text-5xl md:text-6xl">Participants</h2>
           </div>
 
           {programSections.map((program) => {
@@ -379,19 +379,19 @@ export default function Home() {
             const programCarouselId = `program-carousel-${getProgramSlug(program.name)}`;
 
             return (
-            <div key={program.name} className="mb-32 last:mb-0">
-              <div className="flex justify-between items-end mb-12 border-b border-[#303030]/10 pb-8">
+            <div key={program.name} className="mb-20 last:mb-0 md:mb-32">
+              <div className="mb-8 flex flex-col items-start justify-between gap-6 border-b border-[#303030]/10 pb-8 md:mb-12 md:flex-row md:items-end">
                 <div className="max-w-2xl">
-                  <h3 className="text-4xl font-black tracking-[-0.04em] mb-4 text-[#303030]">{program.name}</h3>
-                  <p className="text-[15px] font-medium leading-relaxed opacity-70 tracking-tight text-[#303030]">
+                  <h3 className="mb-4 text-3xl font-black tracking-[-0.04em] text-[#303030] md:text-4xl">{program.name}</h3>
+                  <p className="text-[14px] font-medium leading-relaxed tracking-tight text-[#303030] opacity-70 md:text-[15px]">
                     {program.description}
                   </p>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 self-end md:self-auto">
                    <button
                      type="button"
                      aria-label={`Scroll ${program.name} companies left`}
-                     className="flex h-12 w-12 cursor-pointer items-center justify-center border-2 border-[#303030] bg-white text-[#0c7bc6] shadow-[4px_4px_0_#0c7bc6] transition-all hover:border-[#303030] hover:bg-[#303030] hover:text-[#dfebf7] hover:shadow-[4px_4px_0_#0c7bc6]"
+                     className="flex h-10 w-10 cursor-pointer items-center justify-center border-2 border-[#303030] bg-white text-[#0c7bc6] shadow-[4px_4px_0_#0c7bc6] transition-all hover:border-[#303030] hover:bg-[#303030] hover:text-[#dfebf7] hover:shadow-[4px_4px_0_#0c7bc6] md:h-12 md:w-12"
                      onClick={() => scrollProgramCarousel(programCarouselId, "left")}
                    >
                      <PixelArrowIcon direction="left" />
@@ -399,7 +399,7 @@ export default function Home() {
                    <button
                      type="button"
                      aria-label={`Scroll ${program.name} companies right`}
-                     className="flex h-12 w-12 cursor-pointer items-center justify-center border-2 border-[#303030] bg-white text-[#0c7bc6] shadow-[4px_4px_0_#0c7bc6] transition-all hover:border-[#303030] hover:bg-[#303030] hover:text-[#dfebf7] hover:shadow-[4px_4px_0_#0c7bc6]"
+                     className="flex h-10 w-10 cursor-pointer items-center justify-center border-2 border-[#303030] bg-white text-[#0c7bc6] shadow-[4px_4px_0_#0c7bc6] transition-all hover:border-[#303030] hover:bg-[#303030] hover:text-[#dfebf7] hover:shadow-[4px_4px_0_#0c7bc6] md:h-12 md:w-12"
                      onClick={() => scrollProgramCarousel(programCarouselId, "right")}
                    >
                      <PixelArrowIcon direction="right" />
@@ -407,13 +407,13 @@ export default function Home() {
                 </div>
               </div>
 
-              <div id={programCarouselId} className="flex overflow-x-auto gap-8 pb-12 no-scrollbar scroll-smooth">
+              <div id={programCarouselId} className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-12 no-scrollbar scroll-smooth md:gap-8">
                 {companiesLoading ? (
-                  <div className="min-w-[380px] border-2 border-dashed border-[#303030]/20 bg-white p-10 text-[#303030]/60">
+                  <div className="min-w-[min(340px,calc(100vw-48px))] border-2 border-dashed border-[#303030]/20 bg-white p-8 text-[#303030]/60 md:min-w-[380px] md:p-10">
                     Loading companies...
                   </div>
                 ) : programCompanies.length === 0 ? (
-                  <div className="min-w-[380px] border-2 border-dashed border-[#303030]/20 bg-white p-10">
+                  <div className="min-w-[min(340px,calc(100vw-48px))] border-2 border-dashed border-[#303030]/20 bg-white p-8 md:min-w-[380px] md:p-10">
                     <p className="text-xl font-black tracking-[-0.03em] text-[#303030]">
                       More updates coming soon
                     </p>
@@ -423,16 +423,16 @@ export default function Home() {
                   </div>
                 ) : (
                   programCompanies.map((company) => (
-                    <Link href={`/company/${company.id}`} key={company.id} className="group w-[456px] flex-none">
-                      <div className="flex h-[610px] w-full flex-col overflow-hidden border-2 border-[#303030] bg-white transition-all group-hover:bg-[#dfebf7]">
+                    <Link href={`/company/${company.id}`} key={company.id} className="group w-[min(340px,calc(100vw-48px))] flex-none snap-start md:w-[456px]">
+                      <div className="flex h-[540px] w-full flex-col overflow-hidden border-2 border-[#303030] bg-white transition-all group-hover:bg-[#dfebf7] md:h-[610px]">
                         <div className="relative flex min-h-0 flex-1 flex-col">
                           {/* Inset frame: the top/side lines overlap the outer border to create corner squares. */}
-                          <div className="pointer-events-none absolute left-0 right-0 top-8 h-[2px] bg-[#303030]" />
-                          <div className="pointer-events-none absolute bottom-0 left-8 top-0 w-[2px] bg-[#303030]" />
-                          <div className="pointer-events-none absolute bottom-0 right-8 top-0 w-[2px] bg-[#303030]" />
+                          <div className="pointer-events-none absolute left-0 right-0 top-6 h-[2px] bg-[#303030] md:top-8" />
+                          <div className="pointer-events-none absolute bottom-0 left-6 top-0 w-[2px] bg-[#303030] md:left-8" />
+                          <div className="pointer-events-none absolute bottom-0 right-6 top-0 w-[2px] bg-[#303030] md:right-8" />
 
-                          <div className="relative z-10 flex h-full flex-col px-16 pb-8 pt-28">
-                            <div className="relative mb-7 h-20 w-48 shrink-0">
+                          <div className="relative z-10 flex h-full flex-col px-10 pb-7 pt-20 md:px-16 md:pb-8 md:pt-28">
+                            <div className="relative mb-6 h-16 w-40 shrink-0 md:mb-7 md:h-20 md:w-48">
                               {company.image_url ? (
                                 <Image
                                   src={company.image_url}
@@ -447,11 +447,11 @@ export default function Home() {
                               )}
                             </div>
 
-                            <h4 className="mb-4 text-3xl font-black leading-none tracking-[-0.04em] text-[#303030] group-hover:text-[#0c7bc6]">
+                            <h4 className="mb-4 text-2xl font-black leading-none tracking-[-0.04em] text-[#303030] group-hover:text-[#0c7bc6] md:text-3xl">
                               {company.company_name}
                             </h4>
 
-                            <p className="mb-6 line-clamp-6 text-[15px] font-medium leading-snug text-[#303030]">
+                            <p className="mb-6 line-clamp-6 text-[14px] font-medium leading-snug text-[#303030] md:text-[15px]">
                               {company.mission_statement || company.company_description}
                             </p>
 
@@ -459,11 +459,11 @@ export default function Home() {
                           </div>
                         </div>
 
-                        <div className="relative z-10 h-[150px] shrink-0 bg-[#030707] px-8 py-5 text-white">
+                        <div className="relative z-10 h-[150px] shrink-0 bg-[#030707] px-6 py-5 text-white md:px-8">
                           <div className="font-pixel mb-5 text-[9px] uppercase tracking-normal text-[#89d9dd]">
                             Relevant Sectors
                           </div>
-                          <div className="-mx-8 mb-5 h-px bg-[#89d9dd]" />
+                          <div className="-mx-6 mb-5 h-px bg-[#89d9dd] md:-mx-8" />
                           <div className="flex max-h-[72px] flex-wrap gap-2 overflow-y-auto pr-1 no-scrollbar">
                             {(company.relevant_sectors?.length
                               ? company.relevant_sectors
@@ -495,19 +495,19 @@ export default function Home() {
           <div className="container mx-auto grid px-6 md:grid-cols-[2px_1fr_2px_1fr] md:px-12 lg:px-24">
             <div className="hidden bg-[#303030] md:block" />
 
-            <div className="py-10 pl-8 pr-10">
-              <div className="font-pixel mb-0.5 text-[11px] uppercase tracking-normal text-[#0c7bc6]">
+            <div className="py-8 md:py-10 md:pl-8 md:pr-10">
+              <div className="font-pixel mb-0.5 text-[10px] uppercase tracking-normal text-[#0c7bc6] md:text-[11px]">
                 Thank You
               </div>
-              <h2 className="text-7xl font-black tracking-[-0.04em] text-[#303030]">
+              <h2 className="text-4xl font-black tracking-[-0.04em] text-[#303030] sm:text-5xl md:text-6xl lg:text-7xl">
                 Our Supporters
               </h2>
             </div>
 
             <div className="hidden bg-[#303030] md:block" />
 
-            <div className="flex items-center justify-end py-10 pl-10">
-              <p className="max-w-[520px] text-left text-[15px] font-medium leading-snug text-[#303030]">
+            <div className="flex items-center justify-start pb-8 md:justify-end md:py-10 md:pl-10">
+              <p className="max-w-[520px] text-left text-[14px] font-medium leading-snug text-[#303030] md:text-[15px]">
                 <span className="block">
                   The Catalyst Innovation Showcase is made possible
                 </span>
@@ -517,7 +517,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative min-h-[680px] w-full overflow-hidden bg-[#c9c9c9]">
+        <div className="relative min-h-[520px] w-full overflow-hidden bg-[#c9c9c9] md:min-h-[680px]">
           <div className="absolute left-0 top-0 grid min-h-full w-full grid-cols-[repeat(auto-fill,16px)] auto-rows-[16px] content-start">
             {Array.from({ length: 9000 }).map((_, i) => (
               <div
@@ -529,7 +529,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="relative z-10 mx-auto flex h-[680px] max-w-6xl items-center justify-center">
+          <div className="relative z-10 mx-auto flex min-h-[520px] max-w-6xl items-center justify-center px-6 py-16 md:h-[680px] md:px-0 md:py-0">
             {supportersLoading ? (
               <div className="bg-white px-8 py-5 text-sm font-bold text-[#303030]">
                 Loading supporters...
@@ -539,20 +539,19 @@ export default function Home() {
                 Supporter logos coming soon
               </div>
             ) : (
-              <div className="relative h-[450px] w-[760px]">
+              <div className="flex w-full max-w-sm flex-col gap-7 sm:max-w-md md:relative md:h-[450px] md:w-[760px] md:max-w-none md:block">
                 {supporters.slice(0, 4).map((supporter, index) => {
-                  const cardPositions = [
-                    { left: "0px", top: "44px" },
-                    { left: "330px", top: "12px" },
-                    { left: "180px", top: "258px" },
-                    { left: "510px", top: "230px" },
+                  const cardPositionClasses = [
+                    "self-start md:left-0 md:top-11",
+                    "self-end -mt-4 md:left-[330px] md:top-3 md:mt-0",
+                    "self-start -mt-2 md:left-[180px] md:top-[258px] md:mt-0",
+                    "self-end -mt-5 md:left-[510px] md:top-[230px] md:mt-0",
                   ];
 
                   return (
                     <div
                       key={supporter.id}
-                      className="absolute flex size-56 items-center justify-center border-2 border-[#303030] bg-white p-10"
-                      style={cardPositions[index]}
+                      className={`flex size-44 items-center justify-center border-2 border-[#303030] bg-white p-7 shadow-[8px_8px_0_rgba(48,48,48,0.08)] sm:size-52 md:absolute md:size-56 md:p-10 md:shadow-none ${cardPositionClasses[index]}`}
                     >
                       <div className="relative h-full w-full">
                         <Image
@@ -573,7 +572,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="relative z-10 border-y-2 border-[#303030] bg-white">
-        <div className="container mx-auto grid px-6 py-16 md:grid-cols-[0.82fr_1.28fr] md:px-12 lg:px-24 lg:py-20">
+        <div className="container mx-auto grid gap-12 px-6 py-12 md:grid-cols-[0.82fr_1.28fr] md:gap-0 md:px-12 md:py-16 lg:px-24 lg:py-20">
           <div className="max-w-sm">
             <div className="mb-5">
               <Image
@@ -581,11 +580,11 @@ export default function Home() {
                 alt="Toronto Metropolitan University and Rogers Cybersecure Catalyst"
                 width={320}
                 height={110}
-                className="h-auto w-[260px] object-contain"
+                className="h-auto w-[220px] object-contain md:w-[260px]"
               />
             </div>
 
-            <p className="mb-9 max-w-[270px] text-[13px] font-medium leading-tight text-[#303030]">
+            <p className="mb-8 max-w-[270px] text-[13px] font-medium leading-tight text-[#303030] md:mb-9">
               Rogers Cybersecure Catalyst is Toronto Metropolitan University's national centre for
               training, innovation and collaboration in cybersecurity.
             </p>
@@ -602,17 +601,17 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-12 max-w-2xl md:mt-0 md:pl-10 lg:pl-20">
-            <h2 className="mb-5 text-[44px] font-black leading-[0.95] tracking-[-0.05em] text-[#030707] md:text-[58px]">
+          <div className="max-w-2xl md:pl-10 lg:pl-20">
+            <h2 className="mb-5 text-[36px] font-black leading-[0.95] tracking-[-0.05em] text-[#030707] sm:text-[44px] md:text-[58px]">
               Catalyst Innovation
               <br />
               Showcase
             </h2>
-            <p className="mb-8 max-w-[570px] text-[18px] font-medium leading-tight text-[#030707]">
+            <p className="mb-8 max-w-[570px] text-[15px] font-medium leading-tight text-[#030707] md:text-[18px]">
               Join us at the Catalyst Innovation Showcase, where startups from three leading
               innovation programs will present their technologies.
             </p>
-            <div className="font-pixel flex items-center gap-3 text-[12px] uppercase tracking-normal text-[#030707]">
+            <div className="font-pixel flex flex-wrap items-center gap-x-3 gap-y-2 text-[9px] uppercase tracking-normal text-[#030707] md:text-[12px]">
               <span>THURSDAY, JUNE 11</span>
               <span className="text-[#0c7bc6] text-2xl">/</span>
               <span>3:00 PM - 7:00 PM</span>
@@ -623,7 +622,7 @@ export default function Home() {
         <div className="border-t-2 border-[#303030] bg-[#dfebf7]">
           <div className="container mx-auto flex min-h-24 flex-col justify-between gap-6 px-6 py-8 text-[11px] font-bold text-[#030707] md:flex-row md:items-center md:px-12 lg:px-24">
             <div>© Rogers Cybersecure Catalyst</div>
-            <nav className="flex flex-wrap gap-x-8 gap-y-3">
+            <nav className="flex flex-wrap gap-x-6 gap-y-3 md:gap-x-8">
               <a
                 href="https://cybersecurecatalyst.ca/accessibility/"
                 target="_blank"
