@@ -48,7 +48,8 @@ export default function AdminSupporters() {
     try {
       let logoUrl = formData.logo;
       if (file) {
-        logoUrl = await uploadFile(file, `supporters/${Date.now()}_${file.name}`);
+        const safeFileName = file.name.replace(/[^a-zA-Z0-9.\-_]+/g, "-");
+        logoUrl = await uploadFile(file, `supporter-logos/${Date.now()}_${safeFileName}`);
       }
 
       const dataToSave = { ...formData, logo: logoUrl };
@@ -65,6 +66,7 @@ export default function AdminSupporters() {
       setFormData(initialSupporter);
       setFile(null);
     } catch (error) {
+      console.error("Failed to save supporter", error);
       toast.error("Failed to save supporter");
     } finally {
       setUploading(false);

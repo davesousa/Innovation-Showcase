@@ -136,9 +136,10 @@ export default function AdminCompanies() {
       let imageUrl = formData.image_url ?? "";
 
       if (imageFile) {
+        const safeFileName = imageFile.name.replace(/[^a-zA-Z0-9.\-_]+/g, "-");
         imageUrl = await uploadFile(
           imageFile,
-          `companies/${Date.now()}_${imageFile.name}`
+          `company-images/${Date.now()}_${safeFileName}`
         );
       }
 

@@ -44,6 +44,12 @@ interface ScheduleDocument {
   storage_path: string;
 }
 
+interface HeroImage {
+  image_url: string;
+  storage_path: string;
+  order: number;
+}
+
 const programSections = [
   {
     name: "Cyber Challenge Program",
@@ -207,6 +213,7 @@ export default function Home() {
   const { data: companies, loading: companiesLoading } = useFirestore<Company>("companies");
   const { data: events, loading: eventsLoading } = useFirestore<Event>("schedule");
   const { data: supporters, loading: supportersLoading } = useFirestore<Supporter>("supporters");
+  const { data: heroImages } = useFirestore<HeroImage>("hero_images");
   const [scheduleDocument, setScheduleDocument] = useState<ScheduleDocument | null>(null);
 
   useEffect(() => {
@@ -222,6 +229,10 @@ export default function Home() {
 
     window.open("/schedule-download", "_blank", "noopener,noreferrer");
   };
+
+  const orderedHeroImages = [...heroImages]
+    .sort((a, b) => a.order - b.order)
+    .slice(0, 3);
 
   return (
     <div className="min-h-screen bg-white font-sans text-[#303030]">
@@ -281,21 +292,48 @@ export default function Home() {
           <RetroTunnelScene className="hidden h-[500px] w-full lg:block">
             {/* Floating Frames - Matching Master (Rounded, Light Blue Borders) */}
             <div className="absolute top-0 right-10 z-20 flex h-48 w-64 items-center justify-center border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
-               <div className="w-16 h-16 opacity-20">
-                 <Image src="/file.svg" alt="icon" width={64} height={64} className="grayscale" />
-               </div>
+              {orderedHeroImages[0] ? (
+                <Image
+                  src={orderedHeroImages[0].image_url}
+                  alt="Innovation Showcase hero image 1"
+                  fill
+                  className="object-contain p-8"
+                />
+              ) : (
+                <div className="h-16 w-16 opacity-20">
+                  <Image src="/file.svg" alt="icon" width={64} height={64} className="grayscale" />
+                </div>
+              )}
             </div>
             
             <div className="absolute -left-10 top-40 z-30 flex h-60 w-80 items-center justify-center border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
-               <div className="w-20 h-20 opacity-20">
-                 <Image src="/file.svg" alt="icon" width={80} height={80} className="grayscale" />
-               </div>
+              {orderedHeroImages[1] ? (
+                <Image
+                  src={orderedHeroImages[1].image_url}
+                  alt="Innovation Showcase hero image 2"
+                  fill
+                  className="object-contain p-10"
+                />
+              ) : (
+                <div className="h-20 w-20 opacity-20">
+                  <Image src="/file.svg" alt="icon" width={80} height={80} className="grayscale" />
+                </div>
+              )}
             </div>
 
             <div className="absolute bottom-0 right-20 z-20 flex h-52 w-72 items-center justify-center border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-c-x,0px),var(--tunnel-parallax-c-y,0px),0)]">
-               <div className="w-16 h-16 opacity-20">
-                 <Image src="/file.svg" alt="icon" width={64} height={64} className="grayscale" />
-               </div>
+              {orderedHeroImages[2] ? (
+                <Image
+                  src={orderedHeroImages[2].image_url}
+                  alt="Innovation Showcase hero image 3"
+                  fill
+                  className="object-contain p-8"
+                />
+              ) : (
+                <div className="h-16 w-16 opacity-20">
+                  <Image src="/file.svg" alt="icon" width={64} height={64} className="grayscale" />
+                </div>
+              )}
             </div>
           </RetroTunnelScene>
         </div>

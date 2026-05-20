@@ -28,6 +28,16 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
         </Link>
+        <Link href="/admin/hero-images">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+            <CardHeader>
+              <CardTitle>Hero Images</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-600">Manage the three homepage hero images.</p>
+            </CardContent>
+          </Card>
+        </Link>
         <Link href="/admin/supporters">
           <Card className="hover:shadow-lg transition-shadow cursor-pointer">
             <CardHeader>
