@@ -372,14 +372,19 @@ export default function Home() {
             <h2 className="text-4xl font-black tracking-[-0.04em] text-[#303030] sm:text-5xl md:text-6xl">Participants</h2>
           </div>
 
-          {programSections.map((program) => {
+          {programSections.map((program, index) => {
             const programCompanies = companies.filter(
               (company) => company.catalyst_program === program.name
             );
             const programCarouselId = `program-carousel-${getProgramSlug(program.name)}`;
 
             return (
-            <div key={program.name} className="mb-20 last:mb-0 md:mb-32">
+            <div
+              key={program.name}
+              className={`mb-20 last:mb-0 md:mb-32 ${
+                index > 0 ? "border-t-2 border-[#303030] pt-16 md:pt-20" : ""
+              }`}
+            >
               <div className="mb-8 flex flex-col items-start justify-between gap-6 border-b border-[#303030]/10 pb-8 md:mb-12 md:flex-row md:items-end">
                 <div className="max-w-2xl">
                   <h3 className="mb-4 text-3xl font-black tracking-[-0.04em] text-[#303030] md:text-4xl">{program.name}</h3>
@@ -517,7 +522,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative min-h-[520px] w-full overflow-hidden bg-[#c9c9c9] md:min-h-[680px]">
+        <div className="relative min-h-[420px] w-full overflow-hidden bg-[#c9c9c9] md:min-h-[520px]">
           <div className="absolute left-0 top-0 grid min-h-full w-full grid-cols-[repeat(auto-fill,16px)] auto-rows-[16px] content-start">
             {Array.from({ length: 9000 }).map((_, i) => (
               <div
@@ -529,7 +534,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="relative z-10 mx-auto flex min-h-[520px] max-w-6xl items-center justify-center px-6 py-16 md:h-[680px] md:px-0 md:py-0">
+          <div className="relative z-10 mx-auto flex min-h-[420px] max-w-6xl items-center justify-center px-6 py-16 md:min-h-[520px] md:px-12 lg:px-24">
             {supportersLoading ? (
               <div className="bg-white px-8 py-5 text-sm font-bold text-[#303030]">
                 Loading supporters...
@@ -539,19 +544,11 @@ export default function Home() {
                 Supporter logos coming soon
               </div>
             ) : (
-              <div className="flex w-full max-w-sm flex-col gap-7 sm:max-w-md md:relative md:h-[450px] md:w-[760px] md:max-w-none md:block">
-                {supporters.slice(0, 4).map((supporter, index) => {
-                  const cardPositionClasses = [
-                    "self-start md:left-0 md:top-11",
-                    "self-end -mt-4 md:left-[330px] md:top-3 md:mt-0",
-                    "self-start -mt-2 md:left-[180px] md:top-[258px] md:mt-0",
-                    "self-end -mt-5 md:left-[510px] md:top-[230px] md:mt-0",
-                  ];
-
-                  return (
+              <div className="grid w-full max-w-6xl grid-cols-2 items-center justify-items-center gap-6 md:grid-cols-4 md:gap-8">
+                {supporters.slice(0, 4).map((supporter) => (
                     <div
                       key={supporter.id}
-                      className={`flex size-44 items-center justify-center border-2 border-[#303030] bg-white p-7 shadow-[8px_8px_0_rgba(48,48,48,0.08)] sm:size-52 md:absolute md:size-56 md:p-10 md:shadow-none ${cardPositionClasses[index]}`}
+                      className="flex size-40 items-center justify-center border-2 border-[#303030] bg-white p-7 shadow-[4px_4px_0_#0c7bc6] sm:size-48 md:size-52 md:p-9 lg:size-56 lg:p-10"
                     >
                       <div className="relative h-full w-full">
                         <Image
@@ -562,8 +559,7 @@ export default function Home() {
                         />
                       </div>
                     </div>
-                  );
-                })}
+                  ))}
               </div>
             )}
           </div>
