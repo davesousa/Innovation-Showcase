@@ -100,9 +100,7 @@ export default function AdminSupporters() {
             setFile(null);
           }
         }}>
-          <DialogTrigger asChild>
-            <Button>Add Supporter</Button>
-          </DialogTrigger>
+          <DialogTrigger render={<Button>Add Supporter</Button>} />
           <DialogContent>
             <DialogHeader>
               <DialogTitle>{editingSupporter ? "Edit Supporter" : "Add New Supporter"}</DialogTitle>

@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { useFirestore } from "@/hooks/useFirestore";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { db, storage } from "@/lib/firebase";
+import { deleteDoc, doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
+import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import {
   Table,
   TableBody,
@@ -31,6 +34,12 @@ interface Event {
   end_time?: string;
 }
 
+interface ScheduleDocument {
+  file_name: string;
+  download_url: string;
+  storage_path: string;
+}
+
 const initialEvent: Event = {
   title: "",
   description: "",
@@ -44,8 +53,20 @@ export default function AdminSchedule() {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<(Event & { id: string }) | null>(null);
   const [formData, setFormData] = useState<Event>(initialEvent);
+  const [scheduleDocument, setScheduleDocument] = useState<ScheduleDocument | null>(null);
+  const [isUploadingDocument, setIsUploadingDocument] = useState(false);
+  const [isDeletingDocument, setIsDeletingDocument] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    const unsubscribe = onSnapshot(doc(db, "schedule_documents", "current"), (snapshot) => {
+      setScheduleDocument(snapshot.exists() ? (snapshot.data() as ScheduleDocument) : null);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
       if (editingEvent) {
@@ -60,6 +81,64 @@ export default function AdminSchedule() {
       setFormData(initialEvent);
     } catch (error) {
       toast.error("Failed to save event");
+    }
+  };
+
+  const handleScheduleDocumentUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (!file) return;
+
+    setIsUploadingDocument(true);
+
+    try {
+      if (scheduleDocument?.storage_path) {
+        await deleteObject(ref(storage, scheduleDocument.storage_path)).catch(() => undefined);
+      }
+
+      const safeFileName = file.name.replace(/[^a-zA-Z0-9.\-_]+/g, "-");
+      const storagePath = `schedule-documents/${Date.now()}-${safeFileName}`;
+      const storageRef = ref(storage, storagePath);
+
+      await uploadBytes(storageRef, file);
+      const downloadUrl = await getDownloadURL(storageRef);
+
+      await setDoc(doc(db, "schedule_documents", "current"), {
+        file_name: file.name,
+        download_url: downloadUrl,
+        storage_path: storagePath,
+        uploaded_at: serverTimestamp(),
+      });
+
+      toast.success("Schedule document uploaded");
+    } catch (error) {
+      toast.error("Failed to upload schedule document");
+    } finally {
+      setIsUploadingDocument(false);
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
+  const handleScheduleDocumentDelete = async () => {
+    if (!scheduleDocument) return;
+
+    if (!confirm("Are you sure you want to delete the uploaded schedule document?")) {
+      return;
+    }
+
+    setIsDeletingDocument(true);
+
+    try {
+      await deleteObject(ref(storage, scheduleDocument.storage_path)).catch(() => undefined);
+      await deleteDoc(doc(db, "schedule_documents", "current"));
+      toast.success("Schedule document deleted");
+    } catch (error) {
+      toast.error("Failed to delete schedule document");
+    } finally {
+      setIsDeletingDocument(false);
     }
   };
 
@@ -91,9 +170,7 @@ export default function AdminSchedule() {
             setFormData(initialEvent);
           }
         }}>
-          <DialogTrigger asChild>
-            <Button>Add Event</Button>
-          </DialogTrigger>
+          <DialogTrigger render={<Button>Add Event</Button>} />
           <DialogContent>
             <DialogHeader>
               <DialogTitle>{editingEvent ? "Edit Event" : "Add New Event"}</DialogTitle>
@@ -153,6 +230,55 @@ export default function AdminSchedule() {
             </form>
           </DialogContent>
         </Dialog>
+      </div>
+
+      <div className="mb-8 rounded-md border bg-white p-4">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h2 className="text-base font-semibold">Schedule document</h2>
+            {scheduleDocument ? (
+              <div className="group mt-2 inline-flex items-center gap-2 rounded-md border bg-muted/40 px-3 py-2 text-sm">
+                <span className="max-w-[360px] truncate font-medium">
+                  {scheduleDocument.file_name}
+                </span>
+                <button
+                  type="button"
+                  aria-label="Delete uploaded schedule document"
+                  className="hidden size-5 cursor-pointer items-center justify-center rounded-full text-muted-foreground hover:bg-destructive/10 hover:text-destructive group-hover:flex"
+                  onClick={handleScheduleDocumentDelete}
+                  disabled={isDeletingDocument}
+                >
+                  ×
+                </button>
+              </div>
+            ) : (
+              <p className="mt-2 text-sm text-muted-foreground">
+                No schedule document has been uploaded yet.
+              </p>
+            )}
+          </div>
+
+          <div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".pdf,.doc,.docx"
+              className="hidden"
+              onChange={handleScheduleDocumentUpload}
+            />
+            <Button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isUploadingDocument || isDeletingDocument}
+            >
+              {isUploadingDocument
+                ? "Uploading..."
+                : scheduleDocument
+                  ? "Replace schedule doc"
+                  : "Upload schedule doc"}
+            </Button>
+          </div>
+        </div>
       </div>
 
       <div className="bg-white rounded-md border">

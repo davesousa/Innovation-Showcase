@@ -52,7 +52,7 @@ export function useFirestore<T extends DocumentData>(collectionName: string) {
   const update = async (id: string, item: Partial<T>) => {
     try {
       const docRef = doc(db, collectionName, id);
-      await updateDoc(docRef, item);
+      await updateDoc(docRef, item as any);
     } catch (err: any) {
       setError(err.message);
       throw err;

@@ -6,7 +6,8 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Globe, Linkedin, MapPin, Calendar } from "lucide-react";
+import { ArrowLeft, Globe, MapPin, Calendar } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 interface Company {
@@ -21,6 +22,8 @@ interface Company {
   company_description: string;
   mission_statement: string;
   catalyst_program: string;
+  image_url?: string;
+  relevant_sectors?: string[];
 }
 
 export default function CompanyPage() {
@@ -76,8 +79,17 @@ export default function CompanyPage() {
             <div className="bg-white rounded-2xl p-8 shadow-sm border">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
                 <div className="flex items-center gap-6">
-                  <div className="w-20 h-20 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold">
-                    {company.company_name.charAt(0)}
+                  <div className="relative w-20 h-20 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold overflow-hidden">
+                    {company.image_url ? (
+                      <Image
+                        src={company.image_url}
+                        alt={company.company_name}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      company.company_name.charAt(0)
+                    )}
                   </div>
                   <div>
                     <h1 className="text-4xl font-extrabold text-gray-900">{company.company_name}</h1>
@@ -89,17 +101,13 @@ export default function CompanyPage() {
                 </div>
                 <div className="flex gap-3">
                   {company.website_url && (
-                    <Button variant="outline" size="icon" asChild>
-                      <a href={company.website_url} target="_blank" rel="noopener noreferrer">
-                        <Globe className="w-5 h-5" />
-                      </a>
+                    <Button variant="outline" size="icon" render={<a href={company.website_url} target="_blank" rel="noopener noreferrer" />}>
+                      <Globe className="w-5 h-5" />
                     </Button>
                   )}
                   {company.linkedin_url && (
-                    <Button variant="outline" size="icon" asChild>
-                      <a href={company.linkedin_url} target="_blank" rel="noopener noreferrer">
-                        <Linkedin className="w-5 h-5" />
-                      </a>
+                    <Button variant="outline" size="icon" render={<a href={company.linkedin_url} target="_blank" rel="noopener noreferrer" />}>
+                      <Globe className="w-5 h-5" />
                     </Button>
                   )}
                 </div>
@@ -151,6 +159,21 @@ export default function CompanyPage() {
                       <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
                         {company.catalyst_program}
                       </span>
+                    </div>
+                  </div>
+                )}
+                {company.relevant_sectors && company.relevant_sectors.length > 0 && (
+                  <div>
+                    <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Relevant Sectors</label>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {company.relevant_sectors.map((sector) => (
+                        <span
+                          key={sector}
+                          className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800"
+                        >
+                          {sector}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 )}

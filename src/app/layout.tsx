@@ -1,16 +1,74 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { Geist_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const batonTurbo = localFont({
+  variable: "--font-baton-turbo",
+  src: [
+    {
+      path: "./fonts/BatonTurboWeb-Book.woff",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "./fonts/BatonTurboWeb-BookItalic.woff",
+      weight: "300",
+      style: "italic",
+    },
+    {
+      path: "./fonts/BatonTurboWeb-Regular.woff",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/BatonTurboWeb-RegularItalic.woff",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "./fonts/BatonTurboWeb-Medium.woff",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/BatonTurboWeb-MediumItalic.woff",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "./fonts/BatonTurboWeb-Bold.woff",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/BatonTurboWeb-BoldItalic.woff",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "./fonts/BatonTurboWeb-Heavy.woff",
+      weight: "900",
+      style: "normal",
+    },
+    {
+      path: "./fonts/BatonTurboWeb-HeavyItalic.woff",
+      weight: "900",
+      style: "italic",
+    },
+  ],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const pressStart = Press_Start_2P({
+  variable: "--font-press-start",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +84,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${batonTurbo.variable} ${geistMono.variable} ${pressStart.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <AuthProvider>{children}</AuthProvider>

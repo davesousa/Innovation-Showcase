@@ -38,6 +38,16 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
         </Link>
+        <Link href="/admin/users">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+            <CardHeader>
+              <CardTitle>Users</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-600">Manage user roles and permissions.</p>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
     </div>
   );
