@@ -432,17 +432,17 @@ export default function Home() {
                           <div className="pointer-events-none absolute bottom-0 right-6 top-0 w-[2px] bg-[#303030] md:right-8" />
 
                           <div className="relative z-10 flex h-full flex-col px-10 pb-7 pt-20 md:px-16 md:pb-8 md:pt-28">
-                            <div className="relative mb-6 h-16 w-40 shrink-0 md:mb-7 md:h-20 md:w-48">
+                            <div className="relative mb-8 flex size-24 shrink-0 items-center justify-center border-2 border-[#303030] bg-white p-4 shadow-[4px_4px_0_#0c7bc6] md:mb-9 md:size-28">
                               {company.image_url ? (
                                 <Image
                                   src={company.image_url}
                                   alt={company.company_name}
                                   fill
-                                  className="object-contain object-left"
+                                  className="object-contain p-4"
                                 />
                               ) : (
-                                <div className="flex h-20 w-20 items-center justify-center bg-[#303030]/5">
-                                  <div className="h-10 w-10 border-2 border-[#303030]/20" />
+                                <div className="flex size-full items-center justify-center bg-[#303030]/5">
+                                  <div className="size-10 border-2 border-[#303030]/20" />
                                 </div>
                               )}
                             </div>
