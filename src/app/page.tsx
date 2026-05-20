@@ -517,7 +517,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative min-h-[680px] w-full overflow-hidden border-b-2 border-[#303030] bg-[#c9c9c9]">
+        <div className="relative min-h-[680px] w-full overflow-hidden bg-[#c9c9c9]">
           <div className="absolute left-0 top-0 grid min-h-full w-full grid-cols-[repeat(auto-fill,16px)] auto-rows-[16px] content-start">
             {Array.from({ length: 9000 }).map((_, i) => (
               <div
@@ -572,36 +572,83 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-24 bg-[#dfebf7] relative z-10">
-        <div className="container mx-auto px-6 md:px-12 lg:px-24">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-20 mb-24">
-            <div>
-              <div className="flex items-center gap-4 mb-10">
-                <div className="w-12 h-12 bg-[#303030] flex items-center justify-center text-white font-black text-2xl">IS</div>
-                <span className="font-black uppercase tracking-tighter text-2xl">Innovation Showcase</span>
-              </div>
-              <p className="text-[12px] font-bold leading-relaxed opacity-50 uppercase tracking-tight max-w-xs">
-                The premier event for technology and innovation in the security and critical infrastructure sectors.
-              </p>
+      <footer className="relative z-10 border-y-2 border-[#303030] bg-white">
+        <div className="container mx-auto grid px-6 py-16 md:grid-cols-[0.82fr_1.28fr] md:px-12 lg:px-24 lg:py-20">
+          <div className="max-w-sm">
+            <div className="mb-5">
+              <Image
+                src="/assets/images/TMU-RCC-Lockup Black.webp"
+                alt="Toronto Metropolitan University and Rogers Cybersecure Catalyst"
+                width={320}
+                height={110}
+                className="h-auto w-[260px] object-contain"
+              />
             </div>
-            <div className="lg:col-span-2">
-              <div className="text-[11px] font-black uppercase tracking-widest mb-8 opacity-40">Legal Disclaimer</div>
-              <p className="text-[11px] font-bold leading-relaxed opacity-30 uppercase tracking-tight">
-                All information provided during the Innovation Showcase is for informational purposes only. The organizers do not endorse any specific company or technology presented. Participation in the event does not constitute a partnership or financial agreement between the organizers and the participants.
-              </p>
+
+            <p className="mb-9 max-w-[270px] text-[13px] font-medium leading-tight text-[#303030]">
+              Rogers Cybersecure Catalyst is Toronto Metropolitan University's national centre for
+              training, innovation and collaboration in cybersecurity.
+            </p>
+
+            <div className="flex gap-4">
+              <a
+                href="https://cybersecurecatalyst.ca/contact/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-10 cursor-pointer items-center justify-center border-2 border-[#303030] bg-white px-6 text-[13px] font-medium text-[#303030] shadow-[4px_4px_0_#0c7bc6] transition-all hover:bg-[#303030] hover:text-[#dfebf7]"
+              >
+                Contact us
+              </a>
             </div>
           </div>
-          
-          <div className="pt-16 border-t-2 border-[#303030] flex flex-col md:flex-row justify-between items-center gap-10">
-            <div className="text-[11px] font-black uppercase tracking-widest opacity-30">
-              © 2026 Innovation Showcase. Designed for the future.
+
+          <div className="mt-12 max-w-2xl md:mt-0 md:pl-10 lg:pl-20">
+            <h2 className="mb-5 text-[44px] font-black leading-[0.95] tracking-[-0.05em] text-[#030707] md:text-[58px]">
+              Catalyst Innovation
+              <br />
+              Showcase
+            </h2>
+            <p className="mb-8 max-w-[570px] text-[18px] font-medium leading-tight text-[#030707]">
+              Join us at the Catalyst Innovation Showcase, where startups from three leading
+              innovation programs will present their technologies.
+            </p>
+            <div className="font-pixel flex items-center gap-3 text-[12px] uppercase tracking-normal text-[#030707]">
+              <span>THURSDAY, JUNE 11</span>
+              <span className="text-[#0c7bc6] text-2xl">/</span>
+              <span>3:00 PM - 7:00 PM</span>
             </div>
-            <div className="flex gap-12 text-[11px] font-black uppercase tracking-widest">
-              <a href="#" className="hover:text-[#0c7bc6] transition-colors">Twitter</a>
-              <a href="#" className="hover:text-[#0c7bc6] transition-colors">LinkedIn</a>
-              <a href="#" className="hover:text-[#0c7bc6] transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-[#0c7bc6] transition-colors">Accessibility</a>
-            </div>
+          </div>
+        </div>
+
+        <div className="border-t-2 border-[#303030] bg-[#dfebf7]">
+          <div className="container mx-auto flex min-h-24 flex-col justify-between gap-6 px-6 py-8 text-[11px] font-bold text-[#030707] md:flex-row md:items-center md:px-12 lg:px-24">
+            <div>© Rogers Cybersecure Catalyst</div>
+            <nav className="flex flex-wrap gap-x-8 gap-y-3">
+              <a
+                href="https://cybersecurecatalyst.ca/accessibility/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#0c7bc6] transition-colors"
+              >
+                Accessibility
+              </a>
+              <a
+                href="https://cybersecurecatalyst.ca/terms/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#0c7bc6] transition-colors"
+              >
+                Terms Of Service
+              </a>
+              <a
+                href="https://cybersecurecatalyst.ca/notice-of-collection/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#0c7bc6] transition-colors"
+              >
+                Notice of Collection
+              </a>
+            </nav>
           </div>
         </div>
       </footer>
