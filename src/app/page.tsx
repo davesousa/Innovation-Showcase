@@ -103,6 +103,19 @@ function isSupporterGridCellWhite(index: number) {
   return (hash >>> 0) % 100 < 18;
 }
 
+function isSupporterGridCellAnimated(index: number) {
+  const hash = Math.imul(index + 31, 0x9e3779b1) ^ Math.imul(index ^ 127, 0x85ebca6b);
+
+  return (hash >>> 0) % 100 < 46;
+}
+
+function getSupporterGridCellAnimationStyle(index: number) {
+  return {
+    animationDelay: `${((index * 37) % 180) / 10}s`,
+    animationDuration: `${9 + ((index * 19) % 80) / 10}s`,
+  };
+}
+
 function PixelArrowIcon({ direction }: { direction: "left" | "right" }) {
   const blockSize = 4;
   const blocks =
@@ -562,14 +575,20 @@ export default function Home() {
 
         <div className="relative min-h-[420px] w-full overflow-hidden bg-[#c9c9c9] md:min-h-[520px]">
           <div className="absolute left-0 top-0 grid min-h-full w-full grid-cols-[repeat(auto-fill,16px)] auto-rows-[16px] content-start">
-            {Array.from({ length: 9000 }).map((_, i) => (
-              <div
-                key={i}
-                className={`border-[0.5px] border-[#c9c9c9] ${
-                  isSupporterGridCellWhite(i) ? "bg-white" : ""
-                }`}
-              />
-            ))}
+            {Array.from({ length: 9000 }).map((_, i) => {
+              const isWhite = isSupporterGridCellWhite(i);
+              const shouldAnimate = isWhite && isSupporterGridCellAnimated(i);
+
+              return (
+                <div
+                  key={i}
+                  className={`border-[0.5px] border-[#c9c9c9] ${
+                    isWhite ? "bg-white" : ""
+                  } ${shouldAnimate ? "supporter-grid-pulse" : ""}`}
+                  style={shouldAnimate ? getSupporterGridCellAnimationStyle(i) : undefined}
+                />
+              );
+            })}
           </div>
 
           <div className="relative z-10 mx-auto flex min-h-[420px] max-w-6xl items-center justify-center px-6 py-16 md:min-h-[520px] md:px-12 lg:px-24">
@@ -693,6 +712,21 @@ export default function Home() {
         .no-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
+        }
+        .supporter-grid-pulse {
+          animation-name: supporterGridPulse;
+          animation-timing-function: ease-in-out;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+        }
+        @keyframes supporterGridPulse {
+          0%,
+          20% {
+            background-color: #ffffff;
+          }
+          100% {
+            background-color: #c9c9c9;
+          }
         }
       `}</style>
     </div>
