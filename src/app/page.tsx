@@ -111,8 +111,8 @@ function isSupporterGridCellAnimated(index: number) {
 
 function getSupporterGridCellAnimationStyle(index: number) {
   return {
-    animationDelay: `${((index * 37) % 180) / 10}s`,
-    animationDuration: `${9 + ((index * 19) % 80) / 10}s`,
+    animationDelay: `${((index * 53) % 360) / 10}s`,
+    animationDuration: `${13 + ((index * 29) % 90) / 10}s`,
   };
 }
 
@@ -721,9 +721,13 @@ export default function Home() {
         }
         @keyframes supporterGridPulse {
           0%,
-          20% {
+          42% {
             background-color: #ffffff;
           }
+          50% {
+            background-color: #c9c9c9;
+          }
+          92%,
           100% {
             background-color: #c9c9c9;
           }
