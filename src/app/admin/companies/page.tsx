@@ -326,7 +326,7 @@ export default function AdminCompanies() {
             }
           }}>
             <DialogTrigger render={<Button variant="outline">Import CSV</Button>} />
-            <DialogContent className="max-w-xl">
+            <DialogContent className="sm:max-w-2xl">
               <DialogHeader>
                 <DialogTitle>Import Companies</DialogTitle>
               </DialogHeader>
@@ -399,7 +399,7 @@ export default function AdminCompanies() {
             }
           }}>
             <DialogTrigger render={<Button>Add Company</Button>} />
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-5xl">
               <DialogHeader>
                 <DialogTitle>{editingCompany ? "Edit Company" : "Add New Company"}</DialogTitle>
               </DialogHeader>

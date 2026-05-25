@@ -171,7 +171,7 @@ export default function AdminSchedule() {
           }
         }}>
           <DialogTrigger render={<Button>Add Event</Button>} />
-          <DialogContent>
+          <DialogContent className="sm:max-w-2xl">
             <DialogHeader>
               <DialogTitle>{editingEvent ? "Edit Event" : "Add New Event"}</DialogTitle>
             </DialogHeader>

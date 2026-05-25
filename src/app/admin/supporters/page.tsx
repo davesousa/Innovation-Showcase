@@ -103,7 +103,7 @@ export default function AdminSupporters() {
           }
         }}>
           <DialogTrigger render={<Button>Add Supporter</Button>} />
-          <DialogContent>
+          <DialogContent className="sm:max-w-2xl">
             <DialogHeader>
               <DialogTitle>{editingSupporter ? "Edit Supporter" : "Add New Supporter"}</DialogTitle>
             </DialogHeader>
