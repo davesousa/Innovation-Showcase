@@ -303,53 +303,55 @@ export default function Home() {
           
           {/* Reactive retro tunnel */}
           <div className="hidden h-[375px] w-full items-center justify-end lg:flex xl:h-[500px]">
-            <RetroTunnelScene className="h-[500px] w-full origin-center scale-75 xl:scale-100">
-              {/* Floating Frames - Matching Master (Rounded, Light Blue Borders) */}
-              <div className="absolute top-0 right-10 z-20 flex h-48 w-64 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
-                {orderedHeroImages[0] ? (
-                  <Image
-                    src={orderedHeroImages[0].image_url}
-                    alt="Innovation Showcase hero image 1"
-                    fill
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="h-16 w-16 opacity-20">
-                    <Image src="/file.svg" alt="icon" width={64} height={64} className="grayscale" />
-                  </div>
-                )}
-              </div>
-              
-              <div className="absolute -left-10 top-40 z-30 flex h-60 w-80 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
-                {orderedHeroImages[1] ? (
-                  <Image
-                    src={orderedHeroImages[1].image_url}
-                    alt="Innovation Showcase hero image 2"
-                    fill
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="h-20 w-20 opacity-20">
-                    <Image src="/file.svg" alt="icon" width={80} height={80} className="grayscale" />
-                  </div>
-                )}
-              </div>
+            <div className="relative h-[500px] w-[750px] origin-right scale-75 xl:scale-100 xl:w-full">
+              <RetroTunnelScene className="h-full w-full">
+                {/* Floating Frames - Matching Master (Rounded, Light Blue Borders) */}
+                <div className="absolute top-0 right-10 z-20 flex h-48 w-64 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
+                  {orderedHeroImages[0] ? (
+                    <Image
+                      src={orderedHeroImages[0].image_url}
+                      alt="Innovation Showcase hero image 1"
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="h-16 w-16 opacity-20">
+                      <Image src="/file.svg" alt="icon" width={64} height={64} className="grayscale" />
+                    </div>
+                  )}
+                </div>
+                
+                <div className="absolute -left-10 top-40 z-30 flex h-60 w-80 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
+                  {orderedHeroImages[1] ? (
+                    <Image
+                      src={orderedHeroImages[1].image_url}
+                      alt="Innovation Showcase hero image 2"
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="h-20 w-20 opacity-20">
+                      <Image src="/file.svg" alt="icon" width={80} height={80} className="grayscale" />
+                    </div>
+                  )}
+                </div>
 
-              <div className="absolute bottom-0 right-20 z-20 flex h-52 w-72 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-c-x,0px),var(--tunnel-parallax-c-y,0px),0)]">
-                {orderedHeroImages[2] ? (
-                  <Image
-                    src={orderedHeroImages[2].image_url}
-                    alt="Innovation Showcase hero image 3"
-                    fill
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="h-16 w-16 opacity-20">
-                    <Image src="/file.svg" alt="icon" width={64} height={64} className="grayscale" />
-                  </div>
-                )}
-              </div>
-            </RetroTunnelScene>
+                <div className="absolute bottom-0 right-20 z-20 flex h-52 w-72 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-c-x,0px),var(--tunnel-parallax-c-y,0px),0)]">
+                  {orderedHeroImages[2] ? (
+                    <Image
+                      src={orderedHeroImages[2].image_url}
+                      alt="Innovation Showcase hero image 3"
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="h-16 w-16 opacity-20">
+                      <Image src="/file.svg" alt="icon" width={64} height={64} className="grayscale" />
+                    </div>
+                  )}
+                </div>
+              </RetroTunnelScene>
+            </div>
           </div>
         </div>
         </div>
