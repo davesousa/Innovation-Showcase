@@ -302,8 +302,8 @@ export default function Home() {
           </div>
           
           {/* Reactive retro tunnel */}
-          <div className="hidden h-[400px] w-full items-center justify-end lg:flex xl:h-[450px] 2xl:h-[500px]">
-            <div className="relative h-[500px] w-[750px] origin-right scale-[0.8] xl:scale-[0.9] 2xl:scale-100 2xl:w-full">
+          <div className="hidden h-[450px] w-full items-center justify-end lg:flex xl:h-[500px] 2xl:h-[550px]">
+            <div className="relative h-[500px] w-[950px] origin-right scale-[0.85] xl:scale-[0.95] 2xl:scale-100 2xl:w-full">
               <RetroTunnelScene className="h-full w-full">
                 {/* Floating Frames - Matching Master (Rounded, Light Blue Borders) */}
                 <div className="absolute top-0 right-10 z-20 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
@@ -323,7 +323,7 @@ export default function Home() {
                   </div>
                 </div>
                 
-                <div className="absolute -left-10 top-40 z-30 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
+                <div className="absolute -left-32 top-24 z-30 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
                   <div className="flex h-60 w-80 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] lg:scale-[0.65] xl:scale-[0.85] 2xl:scale-100 origin-center">
                     {orderedHeroImages[1] ? (
                       <Image
