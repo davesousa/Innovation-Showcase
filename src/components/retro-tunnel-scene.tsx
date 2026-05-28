@@ -5,7 +5,6 @@ import { type ReactNode, useEffect, useRef } from "react";
 type RetroTunnelSceneProps = {
   children?: ReactNode;
   className?: string;
-  canvasClassName?: string;
 };
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -13,7 +12,6 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 export function RetroTunnelScene({
   children,
   className = "",
-  canvasClassName = "",
 }: RetroTunnelSceneProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -103,11 +101,17 @@ export function RetroTunnelScene({
 
       // ── geometry ────────────────────────────────────────────────────────────
 
-      // Outermost ring is fixed
-      const fL = MARGIN;
-      const fT = MARGIN;
-      const fR = W - MARGIN;
-      const fB = H - MARGIN;
+      // Outermost ring can be expanded independently of the scene wrapper.
+      // This lets breakpoints widen the tunnel without also resizing the image stack.
+      const computedStyle = getComputedStyle(wrapper);
+      const tunnelScaleX = Number.parseFloat(computedStyle.getPropertyValue("--tunnel-scale-x")) || 1;
+      const tunnelScaleY = Number.parseFloat(computedStyle.getPropertyValue("--tunnel-scale-y")) || 1;
+      const tunnelW = (W - MARGIN * 2) * tunnelScaleX;
+      const tunnelH = (H - MARGIN * 2) * tunnelScaleY;
+      const fL = W * 0.5 - tunnelW * 0.5;
+      const fT = H * 0.5 - tunnelH * 0.5;
+      const fR = W * 0.5 + tunnelW * 0.5;
+      const fB = H * 0.5 + tunnelH * 0.5;
 
       // Vanishing point moves subtly
       const vpX = W * 0.5 + smoothVX * W * 0.1;
@@ -189,7 +193,7 @@ export function RetroTunnelScene({
     <div ref={wrapperRef} className={`relative overflow-visible ${className}`}>
       <canvas
         ref={canvasRef}
-        className={`absolute inset-0 h-full w-full opacity-60 ${canvasClassName}`}
+        className="absolute inset-0 h-full w-full opacity-60"
         aria-hidden="true"
       />
       <div className="relative z-10 h-full w-full">{children}</div>
