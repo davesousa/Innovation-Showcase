@@ -302,9 +302,9 @@ export default function Home() {
           </div>
           
           {/* Reactive retro tunnel */}
-          <RetroTunnelScene className="hidden h-[500px] w-full lg:block">
+          <RetroTunnelScene className="hidden h-[375px] w-[75%] justify-self-end lg:block xl:h-[500px] xl:w-full">
             {/* Floating Frames - Matching Master (Rounded, Light Blue Borders) */}
-            <div className="absolute top-0 right-10 z-20 flex h-48 w-64 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
+            <div className="absolute right-7 top-0 z-20 flex h-36 w-48 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[6px_6px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)] xl:right-10 xl:h-48 xl:w-64 xl:shadow-[8px_8px_0_#0c7bc6]">
               {orderedHeroImages[0] ? (
                 <Image
                   src={orderedHeroImages[0].image_url}
@@ -319,7 +319,7 @@ export default function Home() {
               )}
             </div>
             
-            <div className="absolute -left-10 top-40 z-30 flex h-60 w-80 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
+            <div className="absolute -left-8 top-[120px] z-30 flex h-[180px] w-[240px] items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[6px_6px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)] xl:-left-10 xl:top-40 xl:h-60 xl:w-80 xl:shadow-[8px_8px_0_#0c7bc6]">
               {orderedHeroImages[1] ? (
                 <Image
                   src={orderedHeroImages[1].image_url}
@@ -334,7 +334,7 @@ export default function Home() {
               )}
             </div>
 
-            <div className="absolute bottom-0 right-20 z-20 flex h-52 w-72 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-c-x,0px),var(--tunnel-parallax-c-y,0px),0)]">
+            <div className="absolute bottom-0 right-14 z-20 flex h-[156px] w-[216px] items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[6px_6px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-c-x,0px),var(--tunnel-parallax-c-y,0px),0)] xl:right-20 xl:h-52 xl:w-72 xl:shadow-[8px_8px_0_#0c7bc6]">
               {orderedHeroImages[2] ? (
                 <Image
                   src={orderedHeroImages[2].image_url}
