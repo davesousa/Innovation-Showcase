@@ -4,6 +4,7 @@ import { Geist_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { generateSiteMetadata } from "@/lib/seo-metadata";
+import { GoogleAnalytics } from "@/components/google-analytics";
 
 const batonTurbo = localFont({
   variable: "--font-baton-turbo",
@@ -90,6 +91,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <AuthProvider>{children}</AuthProvider>
+        <GoogleAnalytics />
       </body>
     </html>
   );
