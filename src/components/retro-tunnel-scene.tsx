@@ -41,18 +41,25 @@ export function RetroTunnelScene({
     // ── resize ────────────────────────────────────────────────────────────────
     const resize = () => {
       const r = wrapper.getBoundingClientRect();
-      // Render at full resolution for clean, anti-aliased lines
-      W = r.width;
-      H = r.height;
+      const computedStyle = getComputedStyle(wrapper);
+      const canvasScaleX = Number.parseFloat(computedStyle.getPropertyValue("--tunnel-canvas-scale-x")) || 1;
+      const canvasScaleY = Number.parseFloat(computedStyle.getPropertyValue("--tunnel-canvas-scale-y")) || 1;
+
+      // Render at full resolution for clean, anti-aliased lines. The canvas can be
+      // larger than the wrapper so an expanded tunnel is not clipped by canvas bounds.
+      W = r.width * canvasScaleX;
+      H = r.height * canvasScaleY;
       
       // Handle high DPI displays
       const dpr = window.devicePixelRatio || 1;
       canvas.width = W * dpr;
       canvas.height = H * dpr;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       
       canvas.style.width = `${W}px`;
       canvas.style.height = `${H}px`;
+      canvas.style.left = `${(r.width - W) / 2}px`;
+      canvas.style.top = `${(r.height - H) / 2}px`;
     };
 
     // ── mouse ─────────────────────────────────────────────────────────────────
@@ -101,17 +108,11 @@ export function RetroTunnelScene({
 
       // ── geometry ────────────────────────────────────────────────────────────
 
-      // Outermost ring can be expanded independently of the scene wrapper.
-      // This lets breakpoints widen the tunnel without also resizing the image stack.
-      const computedStyle = getComputedStyle(wrapper);
-      const tunnelScaleX = Number.parseFloat(computedStyle.getPropertyValue("--tunnel-scale-x")) || 1;
-      const tunnelScaleY = Number.parseFloat(computedStyle.getPropertyValue("--tunnel-scale-y")) || 1;
-      const tunnelW = (W - MARGIN * 2) * tunnelScaleX;
-      const tunnelH = (H - MARGIN * 2) * tunnelScaleY;
-      const fL = W * 0.5 - tunnelW * 0.5;
-      const fT = H * 0.5 - tunnelH * 0.5;
-      const fR = W * 0.5 + tunnelW * 0.5;
-      const fB = H * 0.5 + tunnelH * 0.5;
+      // Outermost ring is fixed to the canvas bounds.
+      const fL = MARGIN;
+      const fT = MARGIN;
+      const fR = W - MARGIN;
+      const fB = H - MARGIN;
 
       // Vanishing point moves subtly
       const vpX = W * 0.5 + smoothVX * W * 0.1;
