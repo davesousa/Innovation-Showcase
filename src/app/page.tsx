@@ -305,10 +305,10 @@ export default function Home() {
           <div className="hidden h-[375px] w-full items-center justify-end lg:flex xl:h-[500px]">
             <div className="relative h-[680px] w-[1020px] origin-right scale-50 xl:h-[500px] xl:w-[750px] xl:scale-75 2xl:scale-100">
               <RetroTunnelScene
-                className="h-full w-full [--tunnel-canvas-scale-x:3.15] [--tunnel-canvas-scale-y:2.1] 2xl:[--tunnel-canvas-scale-x:1] 2xl:[--tunnel-canvas-scale-y:1]"
+                className="h-full w-full [--tunnel-canvas-scale-x:3.45] [--tunnel-canvas-scale-y:2.1] 2xl:[--tunnel-canvas-scale-x:1] 2xl:[--tunnel-canvas-scale-y:1]"
               >
                 {/* Floating Frames - Matching Master (Rounded, Light Blue Borders) */}
-                <div className="absolute top-0 right-10 z-20 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
+                <div className="absolute -top-8 right-10 z-20 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
                   <div className="flex h-48 w-64 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] origin-center">
                     {orderedHeroImages[0] ? (
                       <Image
@@ -325,7 +325,7 @@ export default function Home() {
                   </div>
                 </div>
                 
-                <div className="absolute -left-32 top-24 z-30 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
+                <div className="absolute -left-44 top-24 z-30 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
                   <div className="flex h-60 w-80 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] origin-center">
                     {orderedHeroImages[1] ? (
                       <Image
@@ -342,7 +342,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="absolute bottom-0 right-20 z-20 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-c-x,0px),var(--tunnel-parallax-c-y,0px),0)]">
+                <div className="absolute bottom-16 right-6 z-20 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-c-x,0px),var(--tunnel-parallax-c-y,0px),0)]">
                   <div className="flex h-52 w-72 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] origin-center">
                     {orderedHeroImages[2] ? (
                       <Image
