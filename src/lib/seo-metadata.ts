@@ -17,7 +17,7 @@ interface HeroImage {
   order?: number;
 }
 
-function getSiteUrl() {
+export function getSiteUrl() {
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     return process.env.NEXT_PUBLIC_SITE_URL;
   }
@@ -29,7 +29,7 @@ function getSiteUrl() {
   return "";
 }
 
-function toAbsoluteUrl(url: string, siteUrl: string) {
+export function toAbsoluteUrl(url: string, siteUrl: string) {
   if (!url) return "";
 
   try {
