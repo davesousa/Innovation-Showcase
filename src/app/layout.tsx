@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Geist_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { generateSiteMetadata } from "@/lib/seo-metadata";
 
 const batonTurbo = localFont({
   variable: "--font-baton-turbo",
@@ -71,10 +72,11 @@ const pressStart = Press_Start_2P({
   weight: "400",
 });
 
-export const metadata: Metadata = {
-  title: "Innovation Showcase",
-  description: "Directory site for Innovation Showcase event",
-};
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return generateSiteMetadata();
+}
 
 export default function RootLayout({
   children,

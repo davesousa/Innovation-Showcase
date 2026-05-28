@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Users, Building2, Calendar, ImageIcon, LayoutDashboard, LogOut } from "lucide-react";
+import { Users, Building2, Calendar, ImageIcon, LayoutDashboard, LogOut, Search } from "lucide-react";
 
 export default function AdminLayout({
   children,
@@ -84,6 +84,10 @@ export default function AdminLayout({
             <Link href="/admin/supporters" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
               <Building2 className="w-5 h-5" />
               Supporters
+            </Link>
+            <Link href="/admin/seo" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
+              <Search className="w-5 h-5" />
+              SEO Meta
             </Link>
             <Link href="/admin/users" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
               <Users className="w-5 h-5" />

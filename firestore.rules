@@ -1,0 +1,59 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+    }
+
+    match /users/{userId} {
+      allow read: if isAdmin() || (isSignedIn() && request.auth.uid == userId);
+      allow create: if isSignedIn()
+        && request.auth.uid == userId
+        && request.resource.data.uid == userId
+        && request.resource.data.role == "user";
+      allow update, delete: if isAdmin();
+    }
+
+    match /companies/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /schedule/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /supporters/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /hero_images/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /schedule_documents/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /site_settings/seo {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+

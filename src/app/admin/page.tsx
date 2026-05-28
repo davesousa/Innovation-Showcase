@@ -58,6 +58,16 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
         </Link>
+        <Link href="/admin/seo">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+            <CardHeader>
+              <CardTitle>SEO Meta</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-600">Manage search and social sharing metadata.</p>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
     </div>
   );
