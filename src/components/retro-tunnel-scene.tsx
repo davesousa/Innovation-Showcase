@@ -44,6 +44,7 @@ export function RetroTunnelScene({
       const computedStyle = getComputedStyle(wrapper);
       const canvasScaleX = Number.parseFloat(computedStyle.getPropertyValue("--tunnel-canvas-scale-x")) || 1;
       const canvasScaleY = Number.parseFloat(computedStyle.getPropertyValue("--tunnel-canvas-scale-y")) || 1;
+      const canvasOffsetY = Number.parseFloat(computedStyle.getPropertyValue("--tunnel-canvas-offset-y")) || 0;
 
       // Render at full resolution for clean, anti-aliased lines. The canvas can be
       // larger than the wrapper so an expanded tunnel is not clipped by canvas bounds.
@@ -59,7 +60,7 @@ export function RetroTunnelScene({
       canvas.style.width = `${W}px`;
       canvas.style.height = `${H}px`;
       canvas.style.left = `${(r.width - W) / 2}px`;
-      canvas.style.top = `${(r.height - H) / 2}px`;
+      canvas.style.top = `${(r.height - H) / 2 + canvasOffsetY}px`;
     };
 
     // ── mouse ─────────────────────────────────────────────────────────────────
