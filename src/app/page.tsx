@@ -308,7 +308,7 @@ export default function Home() {
                 className="h-full w-full [--tunnel-canvas-scale-x:3.85] [--tunnel-canvas-scale-y:2.1] [--tunnel-canvas-offset-y:28px] 2xl:[--tunnel-canvas-scale-x:1] 2xl:[--tunnel-canvas-scale-y:1] 2xl:[--tunnel-canvas-offset-y:0px]"
               >
                 {/* Floating Frames - Matching Master (Rounded, Light Blue Borders) */}
-                <div className="absolute -top-8 right-10 z-20 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
+                <div className="absolute -top-8 right-10 z-20 transition-transform duration-75 2xl:top-0 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
                   <div className="flex h-48 w-64 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] origin-center">
                     {orderedHeroImages[0] ? (
                       <Image
@@ -325,7 +325,7 @@ export default function Home() {
                   </div>
                 </div>
                 
-                <div className="absolute -left-56 top-24 z-30 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
+                <div className="absolute -left-56 top-24 z-30 transition-transform duration-75 2xl:-left-10 [transform:translate3d(var(--tunnel-parallax-b-x,0px),var(--tunnel-parallax-b-y,0px),0)]">
                   <div className="flex h-60 w-80 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] origin-center">
                     {orderedHeroImages[1] ? (
                       <Image
@@ -342,7 +342,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="absolute bottom-16 right-6 z-20 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-c-x,0px),var(--tunnel-parallax-c-y,0px),0)]">
+                <div className="absolute bottom-16 right-6 z-20 transition-transform duration-75 2xl:bottom-0 2xl:right-20 [transform:translate3d(var(--tunnel-parallax-c-x,0px),var(--tunnel-parallax-c-y,0px),0)]">
                   <div className="flex h-52 w-72 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] origin-center">
                     {orderedHeroImages[2] ? (
                       <Image
