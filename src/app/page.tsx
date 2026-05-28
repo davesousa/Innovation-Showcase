@@ -302,8 +302,8 @@ export default function Home() {
           </div>
           
           {/* Reactive retro tunnel */}
-          <div className="hidden h-[375px] w-full items-center justify-end lg:flex xl:h-[500px]">
-            <div className="relative h-[500px] w-[750px] origin-right scale-75 xl:scale-100 xl:w-full">
+          <div className="hidden h-[250px] w-full items-center justify-end lg:flex xl:h-[375px] 2xl:h-[500px]">
+            <div className="relative h-[500px] w-[750px] origin-right scale-50 xl:scale-75 2xl:scale-100 2xl:w-full">
               <RetroTunnelScene className="h-full w-full">
                 {/* Floating Frames - Matching Master (Rounded, Light Blue Borders) */}
                 <div className="absolute top-0 right-10 z-20 flex h-48 w-64 items-center justify-center overflow-hidden border-2 border-[#303030] bg-white shadow-[8px_8px_0_#0c7bc6] transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
