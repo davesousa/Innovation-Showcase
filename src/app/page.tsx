@@ -286,7 +286,7 @@ export default function Home() {
           <a href="#supporters" className="hover:text-[#0c7bc6] transition-colors">Supporters</a>
         </nav>
 
-        <div className="container relative z-10 mx-auto grid flex-1 grid-cols-1 items-center gap-12 px-10 md:px-12 lg:grid-cols-[0.6fr_1.4fr] lg:px-24">
+        <div className="container relative z-10 mx-auto grid flex-1 grid-cols-1 items-center gap-12 px-10 md:px-12 lg:grid-cols-2 lg:px-24">
           <div className="max-w-2xl">
             <h1 className="mb-5 text-[48px] font-black leading-[0.9] tracking-[-0.055em] sm:text-[58px] md:mb-6 md:text-[74px] xl:text-[94px]">
               Catalyst<br />Innovation<br />Showcase
@@ -302,8 +302,8 @@ export default function Home() {
           </div>
           
           {/* Reactive retro tunnel */}
-          <div className="hidden h-[450px] w-full items-center justify-end lg:flex xl:h-[500px] 2xl:h-[550px]">
-            <div className="relative h-[500px] w-full origin-right scale-50 xl:scale-75 2xl:scale-100">
+          <div className="hidden h-[375px] w-full items-center justify-end lg:flex xl:h-[500px]">
+            <div className="relative h-[500px] w-[750px] origin-right scale-50 xl:scale-75 2xl:scale-100">
               <RetroTunnelScene className="h-full w-full">
                 {/* Floating Frames - Matching Master (Rounded, Light Blue Borders) */}
                 <div className="absolute top-0 right-10 z-20 transition-transform duration-75 [transform:translate3d(var(--tunnel-parallax-a-x,0px),var(--tunnel-parallax-a-y,0px),0)]">
