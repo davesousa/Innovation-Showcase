@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { app } from "@/lib/firebase-app";
 
 type ScheduleDocument = {
   file_name: string;
@@ -11,6 +11,7 @@ type ScheduleDocument = {
 export const dynamic = "force-dynamic";
 
 export async function GET() {
+  const db = getFirestore(app);
   const snapshot = await getDoc(doc(db, "schedule_documents", "current"));
 
   if (!snapshot.exists()) {
