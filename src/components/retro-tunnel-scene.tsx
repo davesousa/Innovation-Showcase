@@ -5,11 +5,16 @@ import { type ReactNode, useEffect, useRef } from "react";
 type RetroTunnelSceneProps = {
   children?: ReactNode;
   className?: string;
+  canvasClassName?: string;
 };
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
-export function RetroTunnelScene({ children, className = "" }: RetroTunnelSceneProps) {
+export function RetroTunnelScene({
+  children,
+  className = "",
+  canvasClassName = "",
+}: RetroTunnelSceneProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -184,7 +189,7 @@ export function RetroTunnelScene({ children, className = "" }: RetroTunnelSceneP
     <div ref={wrapperRef} className={`relative overflow-visible ${className}`}>
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 h-full w-full opacity-60"
+        className={`absolute inset-0 h-full w-full opacity-60 ${canvasClassName}`}
         aria-hidden="true"
       />
       <div className="relative z-10 h-full w-full">{children}</div>
