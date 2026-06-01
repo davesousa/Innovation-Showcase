@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Papa from "papaparse";
 import { useFirestore } from "@/hooks/useFirestore";
 import Image from "next/image";
@@ -105,8 +105,22 @@ export default function AdminCompanies() {
   const [isDragging, setIsDragging] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const [isBulkDeleting, setIsBulkDeleting] = useState(false);
+  const [selectedCompanyIds, setSelectedCompanyIds] = useState<Set<string>>(new Set());
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const selectAllCheckboxRef = useRef<HTMLInputElement>(null);
+  const companyIds = useMemo(() => companies.map((company) => company.id), [companies]);
+  const selectedVisibleCompanyIds = useMemo(
+    () => companyIds.filter((id) => selectedCompanyIds.has(id)),
+    [companyIds, selectedCompanyIds]
+  );
+  const selectedCount = selectedVisibleCompanyIds.length;
+  const allCompaniesSelected = companyIds.length > 0 && selectedCount === companyIds.length;
+  const someCompaniesSelected = selectedCount > 0 && !allCompaniesSelected;
+  const imagePreviewUrl = useMemo(
+    () => (imageFile ? URL.createObjectURL(imageFile) : null),
+    [imageFile]
+  );
   const sectorSuggestions = Array.from(
     new Set(
       companies
@@ -117,16 +131,16 @@ export default function AdminCompanies() {
   ).sort((a, b) => a.localeCompare(b));
 
   useEffect(() => {
-    if (!imageFile) {
-      setImagePreviewUrl(null);
-      return;
+    if (!imagePreviewUrl) return;
+
+    return () => URL.revokeObjectURL(imagePreviewUrl);
+  }, [imagePreviewUrl]);
+
+  useEffect(() => {
+    if (selectAllCheckboxRef.current) {
+      selectAllCheckboxRef.current.indeterminate = someCompaniesSelected;
     }
-
-    const previewUrl = URL.createObjectURL(imageFile);
-    setImagePreviewUrl(previewUrl);
-
-    return () => URL.revokeObjectURL(previewUrl);
-  }, [imageFile]);
+  }, [someCompaniesSelected]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -237,14 +251,59 @@ export default function AdminCompanies() {
     });
   };
 
+  const handleSelectAllCompanies = (checked: boolean) => {
+    setSelectedCompanyIds(checked ? new Set(companyIds) : new Set());
+  };
+
+  const handleSelectCompany = (companyId: string, checked: boolean) => {
+    setSelectedCompanyIds((currentSelectedIds) => {
+      const nextSelectedIds = new Set(currentSelectedIds);
+
+      if (checked) {
+        nextSelectedIds.add(companyId);
+      } else {
+        nextSelectedIds.delete(companyId);
+      }
+
+      return nextSelectedIds;
+    });
+  };
+
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this company?")) {
       try {
         await remove(id);
+        setSelectedCompanyIds((currentSelectedIds) => {
+          const nextSelectedIds = new Set(currentSelectedIds);
+          nextSelectedIds.delete(id);
+          return nextSelectedIds;
+        });
         toast.success("Company deleted successfully");
       } catch (error) {
         toast.error("Failed to delete company");
       }
+    }
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedCount === 0) return;
+
+    const companyLabel = selectedCount === 1 ? "company" : "companies";
+
+    if (!confirm(`Are you sure you want to delete ${selectedCount} selected ${companyLabel}?`)) {
+      return;
+    }
+
+    setIsBulkDeleting(true);
+
+    try {
+      await Promise.all(selectedVisibleCompanyIds.map((id) => remove(id)));
+      setSelectedCompanyIds(new Set());
+      toast.success(`Deleted ${selectedCount} ${companyLabel} successfully`);
+    } catch (error) {
+      toast.error(`Failed to delete selected ${companyLabel}`);
+    } finally {
+      setIsBulkDeleting(false);
     }
   };
 
@@ -592,10 +651,49 @@ export default function AdminCompanies() {
         </div>
       </div>
 
+      <div className="mb-4 flex min-h-9 items-center justify-between gap-3 rounded-md border bg-white px-4 py-3">
+        <p className="text-sm text-muted-foreground">
+          {selectedCount > 0
+            ? `${selectedCount} ${selectedCount === 1 ? "company" : "companies"} selected`
+            : "Select companies to bulk delete them."}
+        </p>
+        <div className="flex gap-2">
+          {selectedCount > 0 && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setSelectedCompanyIds(new Set())}
+              disabled={isBulkDeleting}
+            >
+              Clear Selection
+            </Button>
+          )}
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={handleBulkDelete}
+            disabled={selectedCount === 0 || isBulkDeleting}
+          >
+            {isBulkDeleting ? "Deleting..." : "Delete Selected"}
+          </Button>
+        </div>
+      </div>
+
       <div className="bg-white rounded-md border">
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead className="w-10">
+                <input
+                  ref={selectAllCheckboxRef}
+                  type="checkbox"
+                  aria-label="Select all companies"
+                  checked={allCompaniesSelected}
+                  disabled={loading || companies.length === 0 || isBulkDeleting}
+                  onChange={(event) => handleSelectAllCompanies(event.target.checked)}
+                  className="h-4 w-4 rounded border-gray-300"
+                />
+              </TableHead>
               <TableHead>Image</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Location</TableHead>
@@ -607,45 +705,64 @@ export default function AdminCompanies() {
           <TableBody>
             {loading ? (
               <TableRow>
-                <TableCell colSpan={6} className="text-center">Loading...</TableCell>
+                <TableCell colSpan={7} className="text-center">Loading...</TableCell>
               </TableRow>
             ) : companies.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} className="text-center">No companies found.</TableCell>
+                <TableCell colSpan={7} className="text-center">No companies found.</TableCell>
               </TableRow>
             ) : (
-              companies.map((company) => (
-                <TableRow key={company.id}>
-                  <TableCell>
-                    {company.image_url ? (
-                      <div className="relative h-12 w-12 overflow-hidden rounded-md bg-gray-100">
-                        <Image
-                          src={company.image_url}
-                          alt={company.company_name}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    ) : (
-                      <div className="flex h-12 w-12 items-center justify-center rounded-md bg-gray-100 text-xs font-bold text-gray-400">
-                        —
-                      </div>
-                    )}
-                  </TableCell>
-                  <TableCell className="font-medium">{company.company_name}</TableCell>
-                  <TableCell>{company.full_location || `${company.location_city}, ${company.location_country}`}</TableCell>
-                  <TableCell>{company.catalyst_program || "—"}</TableCell>
-                  <TableCell>{company.year_founded}</TableCell>
-                  <TableCell className="text-right space-x-2">
-                    <Button variant="outline" size="sm" onClick={() => handleEdit(company)}>
-                      Edit
-                    </Button>
-                    <Button variant="destructive" size="sm" onClick={() => handleDelete(company.id)}>
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))
+              companies.map((company) => {
+                const isSelected = selectedCompanyIds.has(company.id);
+
+                return (
+                  <TableRow key={company.id} data-state={isSelected ? "selected" : undefined}>
+                    <TableCell>
+                      <input
+                        type="checkbox"
+                        aria-label={`Select ${company.company_name}`}
+                        checked={isSelected}
+                        disabled={isBulkDeleting}
+                        onChange={(event) => handleSelectCompany(company.id, event.target.checked)}
+                        className="h-4 w-4 rounded border-gray-300"
+                      />
+                    </TableCell>
+                    <TableCell>
+                      {company.image_url ? (
+                        <div className="relative h-12 w-12 overflow-hidden rounded-md bg-gray-100">
+                          <Image
+                            src={company.image_url}
+                            alt={company.company_name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div className="flex h-12 w-12 items-center justify-center rounded-md bg-gray-100 text-xs font-bold text-gray-400">
+                          —
+                        </div>
+                      )}
+                    </TableCell>
+                    <TableCell className="font-medium">{company.company_name}</TableCell>
+                    <TableCell>{company.full_location || `${company.location_city}, ${company.location_country}`}</TableCell>
+                    <TableCell>{company.catalyst_program || "—"}</TableCell>
+                    <TableCell>{company.year_founded}</TableCell>
+                    <TableCell className="text-right space-x-2">
+                      <Button variant="outline" size="sm" onClick={() => handleEdit(company)}>
+                        Edit
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => handleDelete(company.id)}
+                        disabled={isBulkDeleting}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })
             )}
           </TableBody>
         </Table>
