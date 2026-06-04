@@ -262,6 +262,7 @@ export default function Home() {
       return orderA - orderB;
     })
     .map(({ supporter }) => supporter);
+  const useThreeColumnSupporterRows = orderedSupporters.length >= 5;
 
   return (
     <div className="min-h-screen bg-white font-sans text-[#303030]">
@@ -626,11 +627,21 @@ export default function Home() {
                 Supporter logos coming soon
               </div>
             ) : (
-              <div className="flex w-full max-w-6xl flex-wrap items-center justify-center gap-6 md:gap-8">
-                {orderedSupporters.slice(0, 4).map((supporter) => (
+              <div
+                className={`grid w-full place-items-center gap-6 md:gap-8 ${
+                  useThreeColumnSupporterRows
+                    ? "max-w-4xl grid-cols-2 lg:grid-cols-3"
+                    : "max-w-5xl grid-cols-2 lg:grid-cols-4"
+                }`}
+              >
+                {orderedSupporters.map((supporter) => (
                     <div
                       key={supporter.id}
-                      className="flex size-40 items-center justify-center border-2 border-[#303030] bg-white p-7 shadow-[4px_4px_0_#0c7bc6] sm:size-48 md:size-52 md:p-9 lg:size-56 lg:p-10"
+                      className={`flex items-center justify-center border-2 border-[#303030] bg-white shadow-[4px_4px_0_#0c7bc6] ${
+                        useThreeColumnSupporterRows
+                          ? "size-40 p-7 sm:size-48 md:size-52 md:p-9 lg:size-56 lg:p-10"
+                          : "size-36 p-6 sm:size-44 md:size-44 md:p-8 xl:size-48"
+                      }`}
                     >
                       <div className="relative h-full w-full">
                         <Image
