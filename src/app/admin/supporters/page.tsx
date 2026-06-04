@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useFirestore } from "@/hooks/useFirestore";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,10 +23,12 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { uploadFile } from "@/lib/upload";
 import Image from "next/image";
+import { ArrowDown, ArrowUp } from "lucide-react";
 
 interface Supporter {
   company_name: string;
   logo: string;
+  order?: number;
 }
 
 const initialSupporter: Supporter = {
@@ -42,6 +44,41 @@ export default function AdminSupporters() {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
 
+  const orderedSupporters = useMemo(
+    () =>
+      supporters
+        .map((supporter, index) => ({ supporter, fallbackOrder: index }))
+        .sort((a, b) => {
+          const orderA =
+            typeof a.supporter.order === "number" ? a.supporter.order : a.fallbackOrder;
+          const orderB =
+            typeof b.supporter.order === "number" ? b.supporter.order : b.fallbackOrder;
+
+          return orderA - orderB;
+        })
+        .map(({ supporter }) => supporter),
+    [supporters]
+  );
+
+  useEffect(() => {
+    if (loading || supporters.length === 0) return;
+
+    const supportersMissingOrder = orderedSupporters.filter(
+      (supporter) => typeof supporter.order !== "number"
+    );
+
+    if (supportersMissingOrder.length === 0) return;
+
+    Promise.all(
+      orderedSupporters.map((supporter, index) =>
+        typeof supporter.order === "number" ? Promise.resolve() : update(supporter.id, { order: index })
+      )
+    ).catch((error) => {
+      console.error("Failed to initialize supporter order", error);
+      toast.error("Failed to initialize supporter order");
+    });
+  }, [loading, orderedSupporters, supporters.length, update]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setUploading(true);
@@ -52,7 +89,11 @@ export default function AdminSupporters() {
         logoUrl = await uploadFile(file, `supporter-logos/${Date.now()}_${safeFileName}`);
       }
 
-      const dataToSave = { ...formData, logo: logoUrl };
+      const dataToSave = {
+        ...formData,
+        logo: logoUrl,
+        order: editingSupporter?.order ?? orderedSupporters.length,
+      };
 
       if (editingSupporter) {
         await update(editingSupporter.id, dataToSave);
@@ -83,10 +124,36 @@ export default function AdminSupporters() {
     if (confirm("Are you sure you want to delete this supporter?")) {
       try {
         await remove(id);
+
+        const remainingSupporters = orderedSupporters.filter((supporter) => supporter.id !== id);
+        await Promise.all(
+          remainingSupporters.map((supporter, index) => update(supporter.id, { order: index }))
+        );
+
         toast.success("Supporter deleted successfully");
       } catch (error) {
+        console.error("Failed to delete supporter", error);
         toast.error("Failed to delete supporter");
       }
+    }
+  };
+
+  const moveSupporter = async (supporterIndex: number, direction: "up" | "down") => {
+    const targetIndex = direction === "up" ? supporterIndex - 1 : supporterIndex + 1;
+    const currentSupporter = orderedSupporters[supporterIndex];
+    const targetSupporter = orderedSupporters[targetIndex];
+
+    if (!currentSupporter || !targetSupporter) return;
+
+    try {
+      await Promise.all([
+        update(currentSupporter.id, { order: targetIndex }),
+        update(targetSupporter.id, { order: supporterIndex }),
+      ]);
+      toast.success("Supporter order updated");
+    } catch (error) {
+      console.error("Failed to reorder supporter", error);
+      toast.error("Failed to reorder supporter");
     }
   };
 
@@ -152,6 +219,7 @@ export default function AdminSupporters() {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead>Order</TableHead>
               <TableHead>Logo</TableHead>
               <TableHead>Company Name</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -160,15 +228,16 @@ export default function AdminSupporters() {
           <TableBody>
             {loading ? (
               <TableRow>
-                <TableCell colSpan={3} className="text-center">Loading...</TableCell>
+                <TableCell colSpan={4} className="text-center">Loading...</TableCell>
               </TableRow>
-            ) : supporters.length === 0 ? (
+            ) : orderedSupporters.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={3} className="text-center">No supporters found.</TableCell>
+                <TableCell colSpan={4} className="text-center">No supporters found.</TableCell>
               </TableRow>
             ) : (
-              supporters.map((supporter) => (
+              orderedSupporters.map((supporter, index) => (
                 <TableRow key={supporter.id}>
+                  <TableCell className="w-24 text-sm text-gray-500">#{index + 1}</TableCell>
                   <TableCell>
                     <div className="relative w-12 h-12">
                       <Image
@@ -181,6 +250,22 @@ export default function AdminSupporters() {
                   </TableCell>
                   <TableCell className="font-medium">{supporter.company_name}</TableCell>
                   <TableCell className="text-right space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={index === 0}
+                      onClick={() => moveSupporter(index, "up")}
+                    >
+                      <ArrowUp className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={index === orderedSupporters.length - 1}
+                      onClick={() => moveSupporter(index, "down")}
+                    >
+                      <ArrowDown className="h-4 w-4" />
+                    </Button>
                     <Button variant="outline" size="sm" onClick={() => handleEdit(supporter)}>
                       Edit
                     </Button>

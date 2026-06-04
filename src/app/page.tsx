@@ -36,6 +36,7 @@ interface Supporter {
   id: string;
   company_name: string;
   logo: string;
+  order?: number;
 }
 
 interface ScheduleDocument {
@@ -252,6 +253,15 @@ export default function Home() {
   const orderedHeroImages = [...heroImages]
     .sort((a, b) => a.order - b.order)
     .slice(0, 3);
+  const orderedSupporters = supporters
+    .map((supporter, index) => ({ supporter, fallbackOrder: index }))
+    .sort((a, b) => {
+      const orderA = typeof a.supporter.order === "number" ? a.supporter.order : a.fallbackOrder;
+      const orderB = typeof b.supporter.order === "number" ? b.supporter.order : b.fallbackOrder;
+
+      return orderA - orderB;
+    })
+    .map(({ supporter }) => supporter);
 
   return (
     <div className="min-h-screen bg-white font-sans text-[#303030]">
@@ -617,7 +627,7 @@ export default function Home() {
               </div>
             ) : (
               <div className="flex w-full max-w-6xl flex-wrap items-center justify-center gap-6 md:gap-8">
-                {supporters.slice(0, 4).map((supporter) => (
+                {orderedSupporters.slice(0, 4).map((supporter) => (
                     <div
                       key={supporter.id}
                       className="flex size-40 items-center justify-center border-2 border-[#303030] bg-white p-7 shadow-[4px_4px_0_#0c7bc6] sm:size-48 md:size-52 md:p-9 lg:size-56 lg:p-10"
@@ -653,7 +663,7 @@ export default function Home() {
             </div>
 
             <p className="mb-8 max-w-[270px] text-[13px] font-medium leading-tight text-[#303030] md:mb-9">
-              Rogers Cybersecure Catalyst is Toronto Metropolitan University's national centre for
+              Rogers Cybersecure Catalyst is Toronto Metropolitan University&apos;s national centre for
               training, innovation and collaboration in cybersecurity.
             </p>
 
