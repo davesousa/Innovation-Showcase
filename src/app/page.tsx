@@ -51,7 +51,7 @@ interface HeroImage {
   order: number;
 }
 
-const COMPANY_CARD_DESCRIPTION_WORD_LIMIT = 24;
+const COMPANY_CARD_DESCRIPTION_WORD_LIMIT = 14;
 
 const programSections = [
   {
@@ -549,7 +549,7 @@ export default function Home() {
                               {company.company_name}
                             </h4>
 
-                            <p className="mb-6 line-clamp-6 text-[14px] font-medium leading-snug text-[#303030] md:text-[15px]">
+                            <p className="mb-6 text-[14px] font-medium leading-snug text-[#303030] md:text-[15px]">
                               {formatCompanyCardDescription(company)}
                             </p>
 
