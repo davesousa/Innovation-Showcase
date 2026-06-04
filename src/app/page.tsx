@@ -59,12 +59,12 @@ const programSections = [
   {
     name: "RBC FinSec Incubator",
     description:
-      "The RBC FinSec Incubator helps early-stage companies transform the financial ecosystem by enhancing product security and resilience. The program allows startups to demonstrate their technologies to industry experts and potential investors, establish connections within the finance sector, and understand industry procurement requirements - bolstered by the robust support of RBC.",
+      "The RBC FinSec Incubator helps startups enter the financial enterprise ecosystem by enhancing product security, compliance, and resilience. This highly competitive program leverages custom programming and deep mentorship with industry experts to support founders with security, sales, investment, and building connections within the financial sector — bolstered by the robust support of RBC.",
   },
   {
     name: "Law Enforcement Market Access Program",
     description:
-      "The Law Enforcement Market Access Program empowers Canadian technology companies looking to provide solutions to law enforcement. These companies validate their market readiness, gain foundational procurement knowledge to bolster sales, and align their solution with legal and regulatory frameworks.",
+      "Powered by RBC, the Law Enforcement Market Access Program (LEMA) empowers Canadian technology companies with solutions applicable to the public safety sector. Through its expert-led webinar series and mentorship support, this program provides companies with direct exposure to law enforcement stakeholders, guidance on aligning solutions with operational needs, and practical insight into how law enforcement agencies evaluate and procure technology.",
   },
 ];
 
@@ -84,6 +84,12 @@ function formatEventTime(time: string) {
 
 function getProgramSlug(programName: string) {
   return programName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+function formatTitleCase(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
 }
 
 function scrollProgramCarousel(carouselId: string, direction: "left" | "right") {
@@ -430,7 +436,7 @@ export default function Home() {
         <div className="container mx-auto px-6 md:px-12 lg:px-24">
           <div className="mb-12 md:mb-20">
             <div className="font-pixel mb-0.5 text-[10px] uppercase tracking-normal text-[#0c7bc6] md:text-[11px]">
-              The future innovators
+              THE INNOVATORS
             </div>
             <h2 className="text-4xl font-black tracking-[-0.04em] text-[#303030] sm:text-5xl md:text-6xl">Participants</h2>
           </div>
@@ -520,7 +526,7 @@ export default function Home() {
                             </h4>
 
                             <p className="mb-6 line-clamp-6 text-[14px] font-medium leading-snug text-[#303030] md:text-[15px]">
-                              {company.mission_statement || company.company_description}
+                              {company.company_description || company.mission_statement}
                             </p>
 
                             <ExternalLink className="mt-auto h-7 w-7 shrink-0 text-[#303030]" strokeWidth={2} />
@@ -541,7 +547,7 @@ export default function Home() {
                                 key={sector}
                                 className="bg-[#89d9dd] px-3 py-1.5 text-[11px] font-bold text-[#303030]"
                               >
-                                {sector}
+                                {formatTitleCase(sector)}
                               </span>
                             ))}
                           </div>
@@ -576,10 +582,7 @@ export default function Home() {
 
             <div className="flex items-center justify-start pb-8 md:justify-end md:py-10 md:pl-10">
               <p className="max-w-[520px] text-left text-[14px] font-medium leading-snug text-[#303030] md:text-[15px]">
-                <span className="block">
-                  The Catalyst Innovation Showcase is made possible
-                </span>
-                <span className="block">through the generous support of</span>
+                The Catalyst Innovation Showcase is made possible through the generous support of our partners.
               </p>
             </div>
           </div>
