@@ -10,6 +10,19 @@ type ScheduleDocument = {
 
 export const dynamic = "force-dynamic";
 
+function getContentDispositionFileName(fileName: string) {
+  const fallbackFileName = fileName
+    .trim()
+    .replace(/[/\\?%*:|"<>]/g, "-")
+    .replace(/\s+/g, " ");
+
+  const safeFileName = fallbackFileName || "schedule.pdf";
+  const quotedFileName = safeFileName.replace(/["\\]/g, "\\$&");
+  const encodedFileName = encodeURIComponent(safeFileName);
+
+  return `attachment; filename="${quotedFileName}"; filename*=UTF-8''${encodedFileName}`;
+}
+
 export async function GET() {
   const db = getFirestore(app);
   const snapshot = await getDoc(doc(db, "schedule_documents", "current"));
@@ -28,5 +41,18 @@ export async function GET() {
     });
   }
 
-  return NextResponse.redirect(scheduleDocument.download_url);
+  const storageResponse = await fetch(scheduleDocument.download_url);
+
+  if (!storageResponse.ok || !storageResponse.body) {
+    return new NextResponse("The uploaded schedule document could not be downloaded.", {
+      status: 502,
+    });
+  }
+
+  return new NextResponse(storageResponse.body, {
+    headers: {
+      "Content-Disposition": getContentDispositionFileName(scheduleDocument.file_name),
+      "Content-Type": storageResponse.headers.get("Content-Type") || "application/pdf",
+    },
+  });
 }
