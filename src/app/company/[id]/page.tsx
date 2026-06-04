@@ -87,8 +87,18 @@ function PixelExternalArrowIcon() {
   );
 }
 
+function normalizeExternalUrl(url: string) {
+  const trimmedUrl = url.trim();
+
+  if (!trimmedUrl) return "";
+  if (/^[a-z][a-z\d+\-.]*:/i.test(trimmedUrl)) return trimmedUrl;
+  if (trimmedUrl.startsWith("//")) return `https:${trimmedUrl}`;
+
+  return `https://${trimmedUrl.replace(/^\/+/, "")}`;
+}
+
 function getCompanyLink(company: Company) {
-  return company.website_url || company.linkedin_url || "";
+  return normalizeExternalUrl(company.website_url || company.linkedin_url || "");
 }
 
 function getDisplayLocation(company: Company) {
@@ -116,7 +126,7 @@ function Footer() {
           </div>
 
           <p className="mb-8 max-w-[270px] text-[13px] font-medium leading-tight text-[#303030] md:mb-9">
-            Rogers Cybersecure Catalyst is Toronto Metropolitan University's national centre for
+            Rogers Cybersecure Catalyst is Toronto Metropolitan University&apos;s national centre for
             training, innovation and collaboration in cybersecurity.
           </p>
 
@@ -233,6 +243,8 @@ export default function CompanyPage() {
   }
 
   const companyLink = getCompanyLink(company);
+  const websiteLink = normalizeExternalUrl(company.website_url);
+  const linkedinLink = normalizeExternalUrl(company.linkedin_url);
   const displayLocation = getDisplayLocation(company);
 
   return (
@@ -384,9 +396,9 @@ export default function CompanyPage() {
             <div className="mb-10 h-px max-w-sm bg-[#89d9dd] md:mb-12" />
 
             <div className="space-y-5 text-[13px] font-medium text-[#303030]">
-              {company.website_url && (
+              {websiteLink && (
                 <a
-                  href={company.website_url}
+                  href={websiteLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 transition-colors hover:text-[#0c7bc6]"
@@ -397,9 +409,9 @@ export default function CompanyPage() {
                   Visit {company.company_name}
                 </a>
               )}
-              {company.linkedin_url && (
+              {linkedinLink && (
                 <a
-                  href={company.linkedin_url}
+                  href={linkedinLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 transition-colors hover:text-[#0c7bc6]"
