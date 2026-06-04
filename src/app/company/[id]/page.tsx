@@ -432,25 +432,14 @@ export default function CompanyPage() {
               Overview
             </h2>
 
-            {company.mission_statement && (
+            {company.company_description && (
               <div className="mb-8 bg-[#dfebf7] p-6 md:p-8">
                 <div className="font-pixel mb-3 text-[10px] uppercase tracking-[0.2em] text-[#0c7bc6]">
-                  Mission
+                  PRODUCT DESCRIPTION
                 </div>
                 <p className="text-[15px] font-medium leading-snug text-[#303030]">
-                  {company.mission_statement}
+                  {company.company_description}
                 </p>
-              </div>
-            )}
-
-            {company.company_description && (
-              <div className="space-y-5 text-[15px] font-medium leading-relaxed text-[#303030] md:text-[16px]">
-                {company.company_description
-                  .split(/\n+/)
-                  .filter(Boolean)
-                  .map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
               </div>
             )}
 

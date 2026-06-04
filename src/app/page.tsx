@@ -51,6 +51,8 @@ interface HeroImage {
   order: number;
 }
 
+const COMPANY_CARD_DESCRIPTION_WORD_LIMIT = 24;
+
 const programSections = [
   {
     name: "Cyber Challenge Program",
@@ -91,6 +93,17 @@ function formatTitleCase(value: string) {
   return value
     .toLowerCase()
     .replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
+}
+
+function formatCompanyCardDescription(company: Company) {
+  const description = (company.company_description || company.mission_statement).trim();
+  const words = description.split(/\s+/).filter(Boolean);
+
+  if (words.length <= COMPANY_CARD_DESCRIPTION_WORD_LIMIT) {
+    return description;
+  }
+
+  return `${words.slice(0, COMPANY_CARD_DESCRIPTION_WORD_LIMIT).join(" ")} ...`;
 }
 
 function scrollProgramCarousel(carouselId: string, direction: "left" | "right") {
@@ -537,7 +550,7 @@ export default function Home() {
                             </h4>
 
                             <p className="mb-6 line-clamp-6 text-[14px] font-medium leading-snug text-[#303030] md:text-[15px]">
-                              {company.company_description || company.mission_statement}
+                              {formatCompanyCardDescription(company)}
                             </p>
 
                             <ExternalLink className="mt-auto h-7 w-7 shrink-0 text-[#303030]" strokeWidth={2} />
