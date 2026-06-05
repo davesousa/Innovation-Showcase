@@ -82,6 +82,10 @@ export async function generateSiteMetadata(): Promise<Metadata> {
     },
     description: settings.description,
     keywords: splitKeywords(settings.keywords),
+    icons: {
+      icon: "/assets/images/favicon.ico",
+      shortcut: "/assets/images/favicon.ico",
+    },
     alternates: canonicalUrl ? { canonical: canonicalUrl } : undefined,
     openGraph: {
       type: "website",
