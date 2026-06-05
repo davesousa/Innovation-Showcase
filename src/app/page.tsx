@@ -418,7 +418,7 @@ export default function Home() {
               className="h-12 cursor-pointer rounded-none border-2 border-[#303030] bg-white px-5 text-sm font-medium text-[#303030] shadow-[4px_4px_0_#0c7bc6] transition-all hover:border-[#303030] hover:bg-[#303030] hover:text-[#dfebf7] hover:shadow-[4px_4px_0_#0c7bc6] md:h-14 md:px-8 md:text-lg"
               title={scheduleDocument ? `Download ${scheduleDocument.file_name}` : "No schedule PDF has been uploaded yet"}
             >
-              Download PDF version <PixelDownloadIcon />
+              Download Stage Schedules <PixelDownloadIcon />
             </Button>
           </div>
 
