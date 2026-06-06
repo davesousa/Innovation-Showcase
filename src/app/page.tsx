@@ -322,7 +322,7 @@ export default function Home() {
               Catalyst<br />Innovation<br />Showcase
             </h1>
             <p className="mb-6 max-w-md text-[14px] font-bold leading-snug tracking-tight opacity-70 md:mb-7 md:text-[15px]">
-              Join us at the Catalyst Innovation Showcase, where startups from three leading innovation programs will present their technologies.
+              Join us at the Catalyst Innovation Showcase, where over 30 Canadian-founded startups, from three leading innovation programs will present their technologies.
             </p>
             <div className="font-pixel flex flex-wrap items-center gap-x-3 gap-y-2 text-[8px] uppercase tracking-normal sm:text-[9px] md:text-[10px]">
               <span>THURSDAY, JUNE 11</span>
@@ -710,8 +710,8 @@ export default function Home() {
               Showcase
             </h2>
             <p className="mb-8 max-w-[570px] text-[15px] font-medium leading-tight text-[#030707] md:text-[18px]">
-              Join us at the Catalyst Innovation Showcase, where startups from three leading
-              innovation programs will present their technologies.
+              Join us at the Catalyst Innovation Showcase, where over 30 Canadian-founded startups,
+              from three leading innovation programs will present their technologies.
             </p>
             <div className="font-pixel flex flex-wrap items-center gap-x-3 gap-y-2 text-[9px] uppercase tracking-normal text-[#030707] md:text-[12px]">
               <span>THURSDAY, JUNE 11</span>

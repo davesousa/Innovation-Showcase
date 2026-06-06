@@ -147,8 +147,8 @@ function Footer() {
             Showcase
           </h2>
           <p className="mb-8 max-w-[570px] text-[15px] font-medium leading-tight text-[#030707] md:text-[18px]">
-            Join us at the Catalyst Innovation Showcase, where startups from three leading
-            innovation programs will present their technologies.
+            Join us at the Catalyst Innovation Showcase, where over 30 Canadian-founded startups,
+            from three leading innovation programs will present their technologies.
           </p>
           <div className="font-pixel flex flex-wrap items-center gap-x-3 gap-y-2 text-[9px] uppercase tracking-normal text-[#030707] md:text-[12px]">
             <span>THURSDAY, JUNE 11</span>
